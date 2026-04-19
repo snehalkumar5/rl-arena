@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import random
+import time
 import datetime
 import platform
 import hashlib
@@ -70,9 +71,13 @@ class SimulationRunner:
         actor_agent_configs: Optional[dict] = None,
         run_id: Optional[str] = None,
         world_path: Optional[str] = None,
+        on_turn_complete=None,  # callback(turn_number, turn_record_dict)
+        llm_call_delay: float = 5.0,  # seconds between LLM calls to avoid free-tier rate limits
     ):
         self.world = world
         self.world_path = world_path
+        self.on_turn_complete = on_turn_complete
+        self.llm_call_delay = llm_call_delay
         self.original_seed = seed  # FIXED: store before consumption
         self.rng = random.Random(seed)
         self.game_state = initialize_game_state(world)
@@ -165,6 +170,14 @@ class SimulationRunner:
             record = self._run_turn(turn)
             self.turn_records.append(record)
 
+            # Notify callback with completed turn data
+            if self.on_turn_complete:
+                try:
+                    turn_data = record.model_dump() if hasattr(record, 'model_dump') else record
+                    self.on_turn_complete(turn, turn_data)
+                except Exception as e:
+                    print(f"  [callback error] {e}")
+
         # Final leaderboard
         leaderboard = compute_final_leaderboard(self.all_turn_scores, self.world)
 
@@ -245,6 +258,10 @@ class SimulationRunner:
                             turn_traces.append(tr)
                 except Exception:
                     pass
+
+            # Rate-limit delay for LLM agents
+            if self.agent_type == "llm" or actor_id in self.actor_agent_configs:
+                time.sleep(self.llm_call_delay)
 
             # Collect messages for next turn's inboxes
             for msg in output.private_messages:
@@ -488,6 +505,8 @@ def run_simulation(
     llm_api_key: Optional[str] = None,
     llm_provider: Optional[str] = None,
     llm_temperature: float = 0.7,
+    on_turn_complete=None,
+    llm_call_delay: float = 2.0,
 ) -> ReplayLog:
     """Load a world and run a full simulation."""
     world = load_world(world_path)
@@ -501,5 +520,7 @@ def run_simulation(
         llm_provider=llm_provider,
         llm_temperature=llm_temperature,
         world_path=world_path,
+        on_turn_complete=on_turn_complete,
+        llm_call_delay=llm_call_delay,
     )
     return runner.run()

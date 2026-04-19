@@ -4,6 +4,7 @@ import { Sidebar } from './components/Sidebar';
 import { ReplayView } from './views/ReplayView';
 import { BacktestView } from './views/BacktestView';
 import CompareView from './views/CompareView';
+import LiveSimView from './views/LiveSimView';
 import { TurnControls } from './components/TurnControls';
 import { CommandPalette } from './components/CommandPalette';
 import TraceViewer from './components/TraceViewer';
@@ -26,6 +27,7 @@ export default function App() {
           {activeView === 'backtest' && <BacktestView />}
           {activeView === 'compare' && <CompareView />}
           {activeView === 'runs' && <CompareView />}
+          {activeView === 'simulate' && <LiveSimView />}
         </div>
         {activeView === 'replay' && currentReplay && <TurnControls />}
       </main>

@@ -67,6 +67,16 @@ export function Sidebar() {
         >
           COMPARE
         </button>
+        <button
+          onClick={() => setActiveView('simulate')}
+          className={`col-span-2 px-3 py-1.5 rounded text-xs font-semibold tracking-wide transition-colors ${
+            activeView === 'simulate'
+              ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+              : 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
+          }`}
+        >
+          ▶ SIMULATE
+        </button>
       </div>
 
       {/* Replay selector */}

@@ -9,7 +9,9 @@ Run with: uvicorn api.server:app --reload --port 8000
 
 from __future__ import annotations
 
+import asyncio
 import json
+import json as json_module
 import os
 import sys
 import uuid
@@ -19,6 +21,7 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from starlette.responses import StreamingResponse
 
 # Add project root to path — must come before any local imports
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -415,6 +418,8 @@ def get_ground_truth():
 
 # Simple in-memory job tracking for async simulation runs
 _jobs: dict[str, dict] = {}
+# Turn-by-turn progress for streaming
+_job_turns: dict[str, list[dict]] = {}  # job_id -> list of completed turn dicts
 
 
 @app.post("/api/simulate")
@@ -443,6 +448,16 @@ def run_simulation_endpoint(req: SimulateRequest, background_tasks: BackgroundTa
                         "api_key": req.llm_api_key,
                     }
 
+            # Track turns in real-time for SSE streaming
+            _job_turns[job_id] = []
+
+            def _on_turn(turn_num, turn_data):
+                """Callback invoked after each turn completes."""
+                _job_turns[job_id].append({
+                    "turn": turn_num,
+                    "data": turn_data,
+                })
+
             world = load_world(str(scenario_path))
             runner = SimulationRunner(
                 world=world,
@@ -452,6 +467,8 @@ def run_simulation_endpoint(req: SimulateRequest, background_tasks: BackgroundTa
                 llm_api_key=req.llm_api_key,
                 world_path=str(scenario_path),
                 actor_agent_configs=actor_agent_configs,
+                on_turn_complete=_on_turn,
+                llm_call_delay=2.0,
             )
             replay = runner.run()
             _jobs[job_id] = {"status": "complete", "result": replay.model_dump(), "error": None}
@@ -480,6 +497,92 @@ def get_simulation_result(job_id: str):
     if job["status"] != "complete":
         raise HTTPException(409, f"Job is {job['status']}, not complete")
     return job["result"]
+
+
+@app.get("/api/simulate/{job_id}/stream")
+async def stream_simulation(job_id: str):
+    """Stream simulation progress via Server-Sent Events.
+    
+    Each event contains a completed turn's data.
+    Use from frontend: const es = new EventSource('/api/simulate/{job_id}/stream')
+    """
+    if job_id not in _jobs:
+        raise HTTPException(404, f"Job '{job_id}' not found")
+
+    async def event_generator():
+        last_sent = 0
+        while True:
+            job = _jobs.get(job_id, {})
+            turns = _job_turns.get(job_id, [])
+
+            # Send any new turns
+            while last_sent < len(turns):
+                turn_data = turns[last_sent]
+                # Simplify the turn data for streaming (don't send full state snapshots)
+                summary = {
+                    "turn": turn_data["turn"],
+                    "actions": turn_data["data"].get("actions", []),
+                    "resolutions": turn_data["data"].get("resolutions", []),
+                    "scores": turn_data["data"].get("scores", []),
+                    "public_news": turn_data["data"].get("public_news", []),
+                    "public_statements": turn_data["data"].get("public_statements", {}),
+                    "traces": [
+                        {
+                            "actor_id": t.get("actor_id"),
+                            "model": t.get("model"),
+                            "latency_ms": t.get("latency_ms"),
+                            "parse_success": t.get("parse_success"),
+                            "was_coerced": t.get("was_coerced"),
+                        }
+                        for t in turn_data["data"].get("traces", [])
+                    ],
+                }
+                yield f"event: turn\ndata: {json_module.dumps(summary, default=str)}\n\n"
+                last_sent += 1
+
+            # Check if simulation is done
+            if job.get("status") in ("complete", "error"):
+                final = {"status": job["status"]}
+                if job.get("error"):
+                    final["error"] = job["error"]
+                yield f"event: done\ndata: {json_module.dumps(final)}\n\n"
+                break
+
+            await asyncio.sleep(1)
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
+@app.get("/api/simulate/{job_id}/turns")
+def get_simulation_turns(job_id: str):
+    """Get completed turns so far for a running simulation (polling alternative to SSE)."""
+    if job_id not in _jobs:
+        raise HTTPException(404, f"Job '{job_id}' not found")
+    turns = _job_turns.get(job_id, [])
+    job = _jobs[job_id]
+    return {
+        "job_id": job_id,
+        "status": job["status"],
+        "completed_turns": len(turns),
+        "turns": [
+            {
+                "turn": t["turn"],
+                "actions": t["data"].get("actions", []),
+                "resolutions": t["data"].get("resolutions", []),
+                "scores": t["data"].get("scores", []),
+                "public_news": t["data"].get("public_news", []),
+            }
+            for t in turns
+        ],
+    }
 
 
 # ── Backtest Run Endpoint ───────────────────────────────────────────────────

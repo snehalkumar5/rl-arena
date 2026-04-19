@@ -8,7 +8,9 @@ import type {
 
 const API = '';
 
-export type ActiveView = 'replay' | 'backtest' | 'runs' | 'compare';
+let _eventSource: EventSource | null = null;
+
+export type ActiveView = 'replay' | 'backtest' | 'runs' | 'compare' | 'simulate';
 
 interface AppState {
   /* ── Data ── */
@@ -23,6 +25,12 @@ interface AppState {
   comparison: RunComparison | null;
   currentTraces: LLMTrace[];
   selectedTrace: LLMTrace | null;
+
+  /* ── Live simulation ── */
+  simulationJobId: string | null;
+  simulationStatus: string | null;  // 'running' | 'complete' | 'error'
+  liveTurns: any[];  // turns received so far
+  simulationError: string | null;
 
   /* ── UI state ── */
   currentTurn: number;
@@ -54,6 +62,11 @@ interface AppState {
   fetchComparison: (runIds: string[]) => Promise<void>;
   selectTrace: (trace: LLMTrace | null) => void;
   toggleRunForComparison: (runId: string) => void;
+
+  /* ── Live simulation actions ── */
+  startSimulation: (scenario: string, agentType: string, model: string, seed?: number) => Promise<void>;
+  connectToSimStream: (jobId: string) => void;
+  disconnectSimStream: () => void;
 }
 
 export const useStore = create<AppState>((set, get) => ({
@@ -67,6 +80,11 @@ export const useStore = create<AppState>((set, get) => ({
   comparison: null,
   currentTraces: [],
   selectedTrace: null,
+
+  simulationJobId: null,
+  simulationStatus: null,
+  liveTurns: [],
+  simulationError: null,
 
   currentTurn: 1,
   selectedActorId: null,
@@ -190,6 +208,70 @@ export const useStore = create<AppState>((set, get) => ({
       set({ selectedRunIds: current.filter(id => id !== runId) });
     } else if (current.length < 2) {
       set({ selectedRunIds: [...current, runId] });
+    }
+  },
+
+  startSimulation: async (scenario, agentType, model, seed = 42) => {
+    set({ simulationJobId: null, simulationStatus: 'starting', liveTurns: [], simulationError: null });
+    try {
+      const res = await fetch(`${API}/api/simulate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ scenario, agent_type: agentType, llm_model: model, seed }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      set({ simulationJobId: data.job_id, simulationStatus: 'running' });
+      // Auto-connect to SSE stream
+      get().connectToSimStream(data.job_id);
+    } catch (e) {
+      set({ simulationStatus: 'error', simulationError: `Failed to start: ${e}` });
+    }
+  },
+
+  connectToSimStream: (jobId: string) => {
+    // Close existing connection
+    if (_eventSource) {
+      _eventSource.close();
+      _eventSource = null;
+    }
+
+    const es = new EventSource(`${API}/api/simulate/${jobId}/stream`);
+    _eventSource = es;
+
+    es.addEventListener('turn', (event) => {
+      try {
+        const turnData = JSON.parse((event as MessageEvent).data);
+        set(state => ({ liveTurns: [...state.liveTurns, turnData] }));
+      } catch (e) {
+        console.error('Failed to parse turn event:', e);
+      }
+    });
+
+    es.addEventListener('done', (event) => {
+      try {
+        const data = JSON.parse((event as MessageEvent).data);
+        set({ simulationStatus: data.status, simulationError: data.error || null });
+      } catch {
+        set({ simulationStatus: 'complete' });
+      }
+      es.close();
+      _eventSource = null;
+      // Refresh replay list to pick up the new replay
+      get().fetchReplayList();
+    });
+
+    es.onerror = () => {
+      // SSE connection lost — fall back to polling
+      es.close();
+      _eventSource = null;
+    };
+  },
+
+  disconnectSimStream: () => {
+    if (_eventSource) {
+      _eventSource.close();
+      _eventSource = null;
     }
   },
 }));
