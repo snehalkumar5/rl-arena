@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStore } from '../store';
 import { getActorColor } from '../types';
+import type { ActiveView } from '../store';
 
 export default function LiveSimView() {
   const {
     simulationJobId, simulationStatus, liveTurns, simulationError,
-    startSimulation,
+    startSimulation, fetchReplayList, loadReplay, setActiveView,
   } = useStore();
 
   const [scenario, setScenario] = useState('hormuz_crisis_apr8');
@@ -202,16 +203,31 @@ export default function LiveSimView() {
         ))}
       </AnimatePresence>
 
-      {/* Completion message */}
+      {/* Completion — view full replay */}
       {simulationStatus === 'complete' && liveTurns.length > 0 && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="rounded-lg border border-emerald-800 bg-emerald-900/20 p-4 text-center"
+          className="rounded-lg border border-emerald-800 bg-emerald-900/20 p-4 text-center space-y-3"
         >
-          <p className="text-emerald-400 font-semibold">Simulation complete</p>
-          <p className="text-xs text-slate-400 mt-1">
-            {liveTurns.length} turns completed. Replay saved and available in the Replay tab.
+          <p className="text-emerald-400 font-semibold">Simulation complete — {liveTurns.length} turns</p>
+          <button
+            onClick={async () => {
+              // Refresh replay list then load the latest replay and switch to replay view
+              await fetchReplayList();
+              const list = useStore.getState().replayList;
+              if (list.length > 0) {
+                // Load the most recent replay (the one we just ran)
+                await loadReplay(list[0].id);
+                setActiveView('replay');
+              }
+            }}
+            className="px-6 py-2 rounded bg-cyan-900/40 text-cyan-400 border border-cyan-700 hover:bg-cyan-900/60 text-sm font-semibold tracking-wide transition-all"
+          >
+            View Full Replay →
+          </button>
+          <p className="text-[10px] text-slate-500">
+            Opens the full replay with map, charts, actions, diplomacy panels
           </p>
         </motion.div>
       )}
