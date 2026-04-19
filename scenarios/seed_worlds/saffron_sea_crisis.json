@@ -1,0 +1,378 @@
+{
+  "world_id": "world_001",
+  "name": "The Saffron Sea Crisis",
+  "turn_limit": 5,
+  "regions": [
+    {
+      "region_id": "r1",
+      "name": "North Strait",
+      "type": "sea_lane",
+      "neighbors": ["r2", "r3", "r5"],
+      "resource_tags": ["trade_route", "chokepoint"],
+      "stability": 0.7,
+      "controller": "state_a"
+    },
+    {
+      "region_id": "r2",
+      "name": "Aurelia Coast",
+      "type": "coastal",
+      "neighbors": ["r1", "r4", "r6"],
+      "resource_tags": ["port", "fisheries"],
+      "stability": 0.8,
+      "controller": "state_a"
+    },
+    {
+      "region_id": "r3",
+      "name": "Ironveld Plateau",
+      "type": "interior",
+      "neighbors": ["r1", "r4", "r7"],
+      "resource_tags": ["minerals", "industry"],
+      "stability": 0.65,
+      "controller": "state_b"
+    },
+    {
+      "region_id": "r4",
+      "name": "Contested Reaches",
+      "type": "border",
+      "neighbors": ["r2", "r3", "r5", "r8"],
+      "resource_tags": ["disputed_territory"],
+      "stability": 0.35,
+      "controller": null
+    },
+    {
+      "region_id": "r5",
+      "name": "Ember Fields",
+      "type": "resource_zone",
+      "neighbors": ["r1", "r4", "r6"],
+      "resource_tags": ["energy", "oil", "gas"],
+      "stability": 0.6,
+      "controller": "state_c"
+    },
+    {
+      "region_id": "r6",
+      "name": "Saffron Bay",
+      "type": "coastal",
+      "neighbors": ["r2", "r5", "r8"],
+      "resource_tags": ["trade_hub", "port"],
+      "stability": 0.85,
+      "controller": "state_d"
+    },
+    {
+      "region_id": "r7",
+      "name": "Ashwood Highlands",
+      "type": "mountainous",
+      "neighbors": ["r3", "r8"],
+      "resource_tags": ["insurgent_haven", "remote"],
+      "stability": 0.3,
+      "controller": null
+    },
+    {
+      "region_id": "r8",
+      "name": "Duskmere Basin",
+      "type": "interior",
+      "neighbors": ["r4", "r6", "r7"],
+      "resource_tags": ["agriculture", "food"],
+      "stability": 0.5,
+      "controller": "state_b"
+    }
+  ],
+  "actors": [
+    {
+      "actor_id": "state_a",
+      "name": "Helios Republic",
+      "actor_type": "state",
+      "archetype": "maritime_trade_democracy",
+      "capabilities": {
+        "military": 70,
+        "economy": 85,
+        "intel": 60,
+        "influence": 75
+      },
+      "resources": {
+        "treasury": 120,
+        "energy": 40,
+        "food": 70,
+        "domestic_stability": 80
+      },
+      "doctrine": {
+        "risk_tolerance": 0.35,
+        "cooperation_bias": 0.75,
+        "escalation_bias": 0.25
+      },
+      "visible_objectives": [
+        "Protect trade routes through North Strait",
+        "Maintain alliance credibility with partners"
+      ],
+      "hidden_objectives": [
+        "Weaken state_c's energy monopoly"
+      ],
+      "relations": {
+        "state_b": 0.6,
+        "state_c": -0.4,
+        "state_d": 0.5,
+        "group_x": -0.7,
+        "group_y": -0.2
+      }
+    },
+    {
+      "actor_id": "state_b",
+      "name": "Ferros Dominion",
+      "actor_type": "state",
+      "archetype": "continental_revisionist_power",
+      "capabilities": {
+        "military": 85,
+        "economy": 60,
+        "intel": 70,
+        "influence": 55
+      },
+      "resources": {
+        "treasury": 90,
+        "energy": 55,
+        "food": 80,
+        "domestic_stability": 65
+      },
+      "doctrine": {
+        "risk_tolerance": 0.7,
+        "cooperation_bias": 0.3,
+        "escalation_bias": 0.7
+      },
+      "visible_objectives": [
+        "Secure control of the Contested Reaches",
+        "Expand industrial capacity"
+      ],
+      "hidden_objectives": [
+        "Covertly fund group_x to destabilize state_a's trade"
+      ],
+      "relations": {
+        "state_a": 0.2,
+        "state_c": 0.4,
+        "state_d": -0.3,
+        "group_x": 0.3,
+        "group_y": -0.5
+      }
+    },
+    {
+      "actor_id": "state_c",
+      "name": "Solari Emirate",
+      "actor_type": "state",
+      "archetype": "energy_exporter",
+      "capabilities": {
+        "military": 55,
+        "economy": 75,
+        "intel": 65,
+        "influence": 60
+      },
+      "resources": {
+        "treasury": 140,
+        "energy": 95,
+        "food": 30,
+        "domestic_stability": 70
+      },
+      "doctrine": {
+        "risk_tolerance": 0.5,
+        "cooperation_bias": 0.5,
+        "escalation_bias": 0.5
+      },
+      "visible_objectives": [
+        "Maintain energy export dominance",
+        "Secure Ember Fields production"
+      ],
+      "hidden_objectives": [
+        "Build covert nuclear capability"
+      ],
+      "relations": {
+        "state_a": -0.3,
+        "state_b": 0.4,
+        "state_d": 0.1,
+        "group_x": -0.2,
+        "group_y": 0.3
+      }
+    },
+    {
+      "actor_id": "state_d",
+      "name": "Lumen Accord",
+      "actor_type": "state",
+      "archetype": "trade_hub_mediator",
+      "capabilities": {
+        "military": 35,
+        "economy": 80,
+        "intel": 50,
+        "influence": 85
+      },
+      "resources": {
+        "treasury": 110,
+        "energy": 45,
+        "food": 60,
+        "domestic_stability": 85
+      },
+      "doctrine": {
+        "risk_tolerance": 0.25,
+        "cooperation_bias": 0.85,
+        "escalation_bias": 0.15
+      },
+      "visible_objectives": [
+        "Preserve regional trade stability",
+        "Broker peace in the Contested Reaches"
+      ],
+      "hidden_objectives": [
+        "Become indispensable mediator to gain leverage over state_a"
+      ],
+      "relations": {
+        "state_a": 0.5,
+        "state_b": -0.1,
+        "state_c": 0.2,
+        "group_x": -0.6,
+        "group_y": 0.1
+      }
+    },
+    {
+      "actor_id": "group_x",
+      "name": "Iron Pact Militia",
+      "actor_type": "non_state",
+      "archetype": "insurgent_network",
+      "capabilities": {
+        "military": 40,
+        "economy": 15,
+        "intel": 45,
+        "influence": 30
+      },
+      "resources": {
+        "treasury": 25,
+        "energy": 10,
+        "food": 20,
+        "domestic_stability": 40
+      },
+      "doctrine": {
+        "risk_tolerance": 0.85,
+        "cooperation_bias": 0.2,
+        "escalation_bias": 0.8
+      },
+      "visible_objectives": [
+        "Control Ashwood Highlands",
+        "Disrupt trade through North Strait"
+      ],
+      "hidden_objectives": [
+        "Secure covert backing from state_b"
+      ],
+      "relations": {
+        "state_a": -0.8,
+        "state_b": 0.4,
+        "state_c": -0.1,
+        "state_d": -0.5,
+        "group_y": -0.6
+      }
+    },
+    {
+      "actor_id": "group_y",
+      "name": "Saffron Liberation Front",
+      "actor_type": "non_state",
+      "archetype": "separatist_movement",
+      "capabilities": {
+        "military": 25,
+        "economy": 20,
+        "intel": 35,
+        "influence": 40
+      },
+      "resources": {
+        "treasury": 20,
+        "energy": 5,
+        "food": 15,
+        "domestic_stability": 35
+      },
+      "doctrine": {
+        "risk_tolerance": 0.6,
+        "cooperation_bias": 0.45,
+        "escalation_bias": 0.55
+      },
+      "visible_objectives": [
+        "Gain autonomy for Duskmere Basin population",
+        "Build international legitimacy"
+      ],
+      "hidden_objectives": [
+        "Negotiate secret support from state_c"
+      ],
+      "relations": {
+        "state_a": -0.1,
+        "state_b": -0.6,
+        "state_c": 0.3,
+        "state_d": 0.2,
+        "group_x": -0.5
+      }
+    }
+  ],
+  "institutions": [
+    {
+      "institution_id": "inst_1",
+      "name": "Continental Security Forum",
+      "functions": ["public_resolution", "ceasefire_monitoring", "sanctions_enforcement"]
+    }
+  ],
+  "initial_events": [
+    {
+      "event_id": "ev_1",
+      "turn": 1,
+      "event_type": "pipeline_attack",
+      "public_text": "A major energy pipeline connecting Ember Fields to Saffron Bay was sabotaged overnight, causing energy prices to spike 30% across the region.",
+      "hidden_implications": {
+        "state_a": "Your naval intelligence intercepted encrypted communications suggesting Iron Pact Militia involvement, possibly with external backing.",
+        "state_b": "Your agents confirm the pipeline attack was carried out by Iron Pact operatives. You provided the explosives covertly last month.",
+        "state_c": "Your energy revenues will increase short-term from the price spike, but long-term instability threatens your export infrastructure.",
+        "state_d": "Trade disruption is already affecting Saffron Bay commerce. Multiple parties are requesting your mediation.",
+        "group_x": "The pipeline attack succeeded. Your fighters are emboldened but exposed. Ferros Dominion support must remain secret.",
+        "group_y": "The attack was not your doing, but state_b security forces are blaming separatists. You risk being targeted in retaliation."
+      }
+    },
+    {
+      "event_id": "ev_2",
+      "turn": 1,
+      "event_type": "diplomatic_crisis",
+      "public_text": "The Continental Security Forum has called an emergency session to address the pipeline attack. All state actors are urged to send delegates.",
+      "hidden_implications": {
+        "state_a": "This is an opportunity to build a coalition against the attackers and strengthen your alliance network.",
+        "state_b": "The forum investigation could expose your connection to the militia. Consider deflecting blame.",
+        "state_c": "Forum pressure may force you to share energy at reduced prices. Prepare a counter-proposal.",
+        "state_d": "As host of the forum, you have agenda-setting power. Use it wisely.",
+        "group_x": "You have no seat at the forum. Your fate is being decided without you.",
+        "group_y": "The forum may offer a path to recognition if you position yourself as a peace-seeking group."
+      }
+    }
+  ],
+  "private_briefs": {
+    "state_a": [
+      "Naval readiness is high but energy reserves are critically low.",
+      "Alliance with Lumen Accord is your strongest diplomatic asset.",
+      "Intelligence suggests Ferros Dominion is arming insurgents in the highlands."
+    ],
+    "state_b": [
+      "Military is strong but treasury is stretched thin from arms buildup.",
+      "Your covert support for Iron Pact is your biggest vulnerability.",
+      "Controlling the Contested Reaches would give you access to trade routes and food supplies."
+    ],
+    "state_c": [
+      "Energy wealth gives you leverage but food imports make you vulnerable.",
+      "The pipeline attack benefits you short-term but could spiral into a broader conflict.",
+      "Secret nuclear program requires continued cover from international scrutiny."
+    ],
+    "state_d": [
+      "Your economy depends on regional trade stability. Any escalation hurts you.",
+      "You have the highest influence score - use it to shape outcomes.",
+      "Both sides will try to recruit you as a mediator. Extract maximum concessions."
+    ],
+    "group_x": [
+      "The pipeline attack was a success but forensic evidence may lead back to you.",
+      "Your fighters need resupply. Ferros Dominion is your only realistic sponsor.",
+      "Ashwood Highlands terrain gives you defensive advantage but limits offensive reach."
+    ],
+    "group_y": [
+      "You are being blamed for an attack you didn't commit.",
+      "Solari Emirate may be willing to support you in exchange for intelligence on Iron Pact.",
+      "International legitimacy is your path to survival. Violence undermines your cause."
+    ]
+  },
+  "global_rules": {
+    "max_messages_per_turn": 2,
+    "max_actions_per_turn": 1,
+    "covert_exposure_chance": 0.3,
+    "treaty_break_reputation_penalty": 0.15
+  }
+}

@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* ── Custom theme tokens ──────────────────────────────────────── */
+@theme {
+  --color-bg-primary: #06090f;
+  --color-bg-secondary: #0c1220;
+  --color-bg-card: #111827;
+  --color-bg-elevated: #1a2332;
+  --color-border-subtle: #1e2d3d;
+  --color-border-accent: #0f3460;
+  --color-accent-cyan: #00d2ff;
+  --color-accent-green: #00e676;
+  --color-accent-red: #ff5252;
+  --color-accent-amber: #ffd740;
+  --color-accent-purple: #b388ff;
+  --color-accent-orange: #ff6b35;
+  --color-text-primary: #e0e0e0;
+  --color-text-secondary: #78909c;
+  --color-text-muted: #4a5568;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* ── Base styles ──────────────────────────────────────────────── */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-border-accent); }
+
+/* ── MapLibre overrides ───────────────────────────────────────── */
+.maplibregl-map { font-family: inherit; }
+.maplibregl-ctrl-attrib { display: none !important; }
+
+/* ── React Flow overrides ─────────────────────────────────────── */
+.react-flow__background { background: var(--color-bg-primary) !important; }
+.react-flow__minimap { background: var(--color-bg-secondary) !important; }
+
+/* ── Pulsing animation ────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ── Glass panel ──────────────────────────────────────────────── */
+.glass-panel {
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+}

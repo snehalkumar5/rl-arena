@@ -1,0 +1,41 @@
+You are designing a compact fictional geopolitical simulation world for a multi-agent benchmark.
+
+Create a JSON object only. No markdown. No commentary.
+
+Requirements:
+- 6 actors total
+- 4 state actors
+- 2 non-state actors
+- 8 regions total
+- Include adjacency between regions
+- Include at least 1 trade chokepoint, 1 disputed border region, and 1 energy-producing region
+- Include 1 multilateral institution
+- Each actor must have:
+  - actor_id
+  - name
+  - actor_type
+  - archetype
+  - capabilities: military, economy, intel, influence (0-100)
+  - resources: treasury, energy, food, domestic_stability
+  - doctrine: risk_tolerance, cooperation_bias, escalation_bias (0-1)
+  - visible_objectives
+  - hidden_objectives
+  - relations with every other actor from -1.0 to 1.0
+- Include 2 initial public events
+- Include private brief material for each actor
+- Keep the world internally coherent and balanced for a 5-turn simulation
+- Avoid real countries, real religions, and real ethnic groups
+- Make the scenario strategically tense but playable
+
+Return valid JSON matching this top-level structure:
+{
+  "world_id": "...",
+  "name": "...",
+  "turn_limit": 5,
+  "regions": [...],
+  "actors": [...],
+  "institutions": [...],
+  "initial_events": [...],
+  "private_briefs": {...},
+  "global_rules": {...}
+}

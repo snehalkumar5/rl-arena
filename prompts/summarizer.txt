@@ -1,0 +1,17 @@
+Summarize the last turn for a single actor in 8 bullet points or fewer.
+
+Focus on:
+- who cooperated
+- who threatened or deceived
+- important public events
+- resource changes
+- trust updates
+- whether current strategy is working
+
+Return JSON:
+{
+  "memory_summary": [
+    "...",
+    "..."
+  ]
+}

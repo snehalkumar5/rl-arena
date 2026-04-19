@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+*.egg
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Logs (keep structure, ignore large replays)
+logs/replays/*.json
+logs/metrics/*.json
+logs/benchmarks/*.json
+!logs/replays/.gitkeep
+!logs/metrics/.gitkeep
+!logs/benchmarks/.gitkeep
+
+# Scenarios generated
+scenarios/generated_worlds/*.json
+!scenarios/generated_worlds/.gitkeep

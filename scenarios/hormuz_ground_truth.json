@@ -1,0 +1,125 @@
+{
+  "scenario_id": "hormuz_apr8",
+  "baseline_date": "2026-04-08",
+  "end_date": "2026-04-19",
+  "disclaimer": "SIMULATION OUTPUTS ARE SPECULATIVE. NOT AN INTELLIGENCE PRODUCT.",
+  "turns": [
+    {
+      "turn": 1,
+      "label": "Fragile Ceasefire (Apr 8-9)",
+      "date_range": "April 8-9, 2026",
+      "real_events": [
+        "Ceasefire takes effect between US and Iran",
+        "Iran begins tolling ships through Hormuz at $1M+ per vessel via IRGC coordination",
+        "China brokers commercial lane with yuan-denominated payments via Kunlun Bank",
+        "Russia and China veto UN Security Council resolution on Hormuz (11-2 vote)",
+        "3 Chinese-flagged commercial vessels transit via Chinese-brokered lane",
+        "Oil prices remain above $95/barrel"
+      ],
+      "real_actions": {
+        "iran": {"action_type": "sanction", "target": "shipping", "description": "Imposed toll regime on Hormuz transit, IRGC coordination required"},
+        "usa": {"action_type": "mobilize", "target": null, "description": "Maintained naval presence, mine-clearing operations continued"},
+        "israel": {"action_type": "mobilize", "target": null, "description": "Continued Lebanon operations despite ceasefire"},
+        "saudi": {"action_type": "hold", "target": null, "description": "Exercised restraint, relied on Red Sea bypass pipeline"},
+        "china": {"action_type": "trade_offer", "target": "iran", "description": "Brokered yuan-denominated commercial transit lane"},
+        "pakistan": {"action_type": "treaty_proposal", "target": "usa", "description": "Arranged Islamabad peace talks framework"},
+        "houthis": {"action_type": "recruit", "target": null, "description": "Held position, prepared Red Sea capabilities"},
+        "shipping": {"action_type": "hold", "target": null, "description": "Most ships remained anchored, few paid tolls to transit"}
+      }
+    },
+    {
+      "turn": 2,
+      "label": "Talks & Posturing (Apr 10-12)",
+      "date_range": "April 10-12, 2026",
+      "real_events": [
+        "US Navy destroyers USS Frank E. Peterson and USS Michael Murphy transit Strait of Hormuz",
+        "IRGC issues 'last warning' to US warships in the strait",
+        "Islamabad peace talks convene with VP Vance leading US delegation",
+        "20-hour marathon negotiations at Islamabad",
+        "Talks collapse - US and Iran far apart on Hormuz control and nuclear program",
+        "Trump announces naval blockade of Iranian ports on Truth Social"
+      ],
+      "real_actions": {
+        "iran": {"action_type": "mobilize", "target": null, "description": "IRGC warned US warships, reinforced Hormuz defenses"},
+        "usa": {"action_type": "mobilize", "target": null, "description": "Destroyers transited Hormuz, Vance negotiated, then Trump declared blockade"},
+        "israel": {"action_type": "proxy_support", "target": null, "description": "Continued striking Hezbollah in Lebanon during talks"},
+        "saudi": {"action_type": "aid", "target": "pakistan", "description": "Supported Pakistan mediation effort diplomatically"},
+        "china": {"action_type": "intel_share", "target": "iran", "description": "Coordinated with Iran on commercial lane logistics"},
+        "pakistan": {"action_type": "treaty_proposal", "target": "iran", "description": "Hosted talks, PM visited Saudi/Qatar/Turkey for support"},
+        "houthis": {"action_type": "recruit", "target": null, "description": "Maintained readiness, awaited Iran's signal"},
+        "shipping": {"action_type": "seek_sponsor", "target": "usa", "description": "Requested naval escort protection for commercial vessels"}
+      }
+    },
+    {
+      "turn": 3,
+      "label": "Blockade (Apr 13-14)",
+      "date_range": "April 13-14, 2026",
+      "real_events": [
+        "US naval blockade begins at 10am ET on April 13",
+        "Oil prices jump 7% to $102/barrel",
+        "China calls blockade 'dangerous and irresponsible'",
+        "Iran vows retaliation, threatens to block all Gulf exports",
+        "Only 8 vessels transited strait on first day of blockade",
+        "US-sanctioned tanker linked to China attempts transit"
+      ],
+      "real_actions": {
+        "iran": {"action_type": "sanction", "target": "usa", "description": "Threatened to completely block all Gulf exports and imports"},
+        "usa": {"action_type": "sanction", "target": "iran", "description": "Implemented full naval blockade of all Iranian ports"},
+        "israel": {"action_type": "mobilize", "target": null, "description": "Maintained pressure on Hezbollah in Lebanon"},
+        "saudi": {"action_type": "hold", "target": null, "description": "Continued Red Sea bypass operations, braced for market impact"},
+        "china": {"action_type": "sanction", "target": "usa", "description": "Condemned blockade diplomatically, Lavrov visited Beijing"},
+        "pakistan": {"action_type": "treaty_proposal", "target": "iran", "description": "Continued backdoor diplomacy for second round of talks"},
+        "houthis": {"action_type": "propaganda", "target": null, "description": "Threatened to target Red Sea shipping and US warships"},
+        "shipping": {"action_type": "hold", "target": null, "description": "Suspended all Hormuz transits, traffic dropped to near zero"}
+      }
+    },
+    {
+      "turn": 4,
+      "label": "Pressure Mounts (Apr 15-17)",
+      "date_range": "April 15-17, 2026",
+      "real_events": [
+        "CENTCOM declares blockade 'fully implemented' - Iran seaborne trade halted",
+        "Russia offers China energy lifeline through Lavrov-Xi meeting",
+        "Iran's oil storage filling up, wells may need to shut down",
+        "Iran threatens to block all Gulf/Red Sea/Oman traffic",
+        "Lebanon ceasefire declared (10-day truce between Israel and Hezbollah)",
+        "Iran announces Strait of Hormuz open for commercial vessels (April 17 evening)"
+      ],
+      "real_actions": {
+        "iran": {"action_type": "treaty_proposal", "target": "shipping", "description": "Opened Hormuz to commercial vessels under IRGC coordination"},
+        "usa": {"action_type": "sanction", "target": "iran", "description": "Maintained blockade even after Iran announced opening"},
+        "israel": {"action_type": "treaty_proposal", "target": null, "description": "Agreed to 10-day Lebanon ceasefire"},
+        "saudi": {"action_type": "trade_offer", "target": "china", "description": "Explored alternative energy supply arrangements"},
+        "china": {"action_type": "trade_offer", "target": "iran", "description": "Accepted Russian energy offer, continued brokering Hormuz transit"},
+        "pakistan": {"action_type": "treaty_proposal", "target": "usa", "description": "Field Marshal visited Iran, PM visited allies for second round"},
+        "houthis": {"action_type": "hold", "target": null, "description": "Held position during diplomatic opening"},
+        "shipping": {"action_type": "seek_sponsor", "target": "usa", "description": "Cautiously welcomed opening but demanded safety guarantees"}
+      }
+    },
+    {
+      "turn": 5,
+      "label": "Breaking Point (Apr 18-19)",
+      "date_range": "April 18-19, 2026",
+      "real_events": [
+        "Iran reverses course: closes Strait of Hormuz again citing US 'breach of trust'",
+        "IRGC gunboats fire on two merchant tankers (British tanker and container ship)",
+        "Ships that entered during brief opening forced to turn back",
+        "India summons Iran ambassador after Indian-flagged vessel threatened",
+        "Ceasefire deadline looms (expires April 21)",
+        "Trump says 'maybe I won't extend' ceasefire, threatens to 'start dropping bombs'",
+        "Iran parliament speaker says both sides 'far from final agreement'",
+        "Top US officials (Hegseth, CIA director) meet at White House"
+      ],
+      "real_actions": {
+        "iran": {"action_type": "mobilize", "target": null, "description": "Re-closed Hormuz, IRGC fired on tankers, reasserted full control"},
+        "usa": {"action_type": "mobilize", "target": null, "description": "Maintained blockade, Trump threatened to resume bombing"},
+        "israel": {"action_type": "hold", "target": null, "description": "Observed Lebanon ceasefire (with violations), focused on Iran terms"},
+        "saudi": {"action_type": "hold", "target": null, "description": "Braced for ceasefire expiry, continued bypass operations"},
+        "china": {"action_type": "trade_offer", "target": "iran", "description": "Continued commercial engagement, offered to mediate"},
+        "pakistan": {"action_type": "treaty_proposal", "target": "iran", "description": "Pushed for framework agreement before deadline"},
+        "houthis": {"action_type": "sabotage", "target": "shipping", "description": "Prepared Red Sea attack capabilities for post-ceasefire"},
+        "shipping": {"action_type": "hold", "target": null, "description": "Full halt of transit attempts after ships fired upon"}
+      }
+    }
+  ]
+}
