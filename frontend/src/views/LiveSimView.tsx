@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStore } from '../store';
-import { getActorColor } from '../types';
+import ActionFlowDiagram from '../components/ActionFlowDiagram';
+import ReasoningPanel from '../components/ReasoningPanel';
+import ScoreDeltaBar from '../components/ScoreDeltaBar';
 
 export default function LiveSimView() {
   const {
@@ -13,8 +15,29 @@ export default function LiveSimView() {
   const [model, setModel] = useState('qwen3.6-plus');
   const [agentType] = useState('llm');
   const [seed, setSeed] = useState(42);
+  const [attachJobId, setAttachJobId] = useState('');
 
   const isRunning = simulationStatus === 'running' || simulationStatus === 'starting';
+
+  // Attach to an existing running job — poll turns instead of SSE
+  const attachToJob = async (jobId: string) => {
+    useStore.setState({ simulationJobId: jobId, simulationStatus: 'running', liveTurns: [], simulationError: null });
+    const poll = async () => {
+      try {
+        const res = await fetch(`/api/simulate/${jobId}/turns`);
+        if (!res.ok) return;
+        const data = await res.json();
+        useStore.setState({ liveTurns: data.turns || [] });
+        if (data.status === 'running') {
+          setTimeout(poll, 3000);
+        } else {
+          useStore.setState({ simulationStatus: data.status });
+          useStore.getState().fetchReplayList();
+        }
+      } catch { /* retry */ setTimeout(poll, 5000); }
+    };
+    poll();
+  };
 
   return (
     <div className="p-6 space-y-6 max-w-5xl mx-auto">
@@ -88,6 +111,26 @@ export default function LiveSimView() {
         </div>
       </div>
 
+      {/* Attach to existing job */}
+      {!isRunning && (
+        <div className="rounded-lg border border-slate-700 bg-slate-800/50 p-3 flex gap-3 items-center">
+          <label className="text-[10px] uppercase tracking-widest text-slate-500 font-semibold whitespace-nowrap">Attach to running job:</label>
+          <input
+            type="text"
+            value={attachJobId}
+            onChange={e => setAttachJobId(e.target.value)}
+            placeholder="paste job_id (e.g. e4898220)"
+            className="flex-1 bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-200 font-mono focus:outline-none focus:border-cyan-500"
+          />
+          <button
+            onClick={() => { if (attachJobId.trim()) attachToJob(attachJobId.trim()); }}
+            className="px-4 py-1.5 rounded bg-amber-900/30 text-amber-400 border border-amber-700 hover:bg-amber-900/50 text-xs font-semibold"
+          >
+            Attach
+          </button>
+        </div>
+      )}
+
       {/* Error */}
       {simulationError && (
         <div className="rounded border border-red-800 bg-red-900/20 p-3 text-sm text-red-400">
@@ -130,15 +173,16 @@ export default function LiveSimView() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="rounded-lg border border-slate-700 bg-slate-800/50 p-4"
+            className="rounded-lg border border-slate-700 bg-slate-800/50"
           >
-            <div className="flex items-center justify-between mb-3">
+            {/* Turn header */}
+            <div className="flex items-center justify-between p-4 pb-2">
               <h3 className="text-sm font-bold text-slate-200">Turn {turn.turn}</h3>
               <div className="flex gap-2">
                 {turn.traces?.map((t: any, i: number) => (
                   <span key={i} className={`text-[10px] px-1.5 py-0.5 rounded ${
                     t.was_coerced ? 'bg-red-900/30 text-red-400' :
-                    t.parse_success ? 'bg-emerald-900/30 text-emerald-400' :
+                    t.parse_success !== false ? 'bg-emerald-900/30 text-emerald-400' :
                     'bg-slate-700 text-slate-400'
                   }`}>
                     {t.actor_id}: {t.latency_ms?.toFixed(0) ?? '?'}ms
@@ -149,55 +193,49 @@ export default function LiveSimView() {
 
             {/* News */}
             {turn.public_news?.length > 0 && (
-              <div className="mb-3 p-2 rounded bg-amber-900/10 border border-amber-800/30">
+              <div className="mx-4 mb-3 p-2 rounded bg-amber-900/10 border border-amber-800/30">
                 {turn.public_news.map((news: string, i: number) => (
                   <p key={i} className="text-xs text-amber-300">{news}</p>
                 ))}
               </div>
             )}
 
-            {/* Actions grid */}
-            <div className="grid grid-cols-2 gap-2">
-              {turn.actions?.map((action: any, i: number) => (
-                <div
-                  key={i}
-                  className="rounded bg-slate-900 border border-slate-700 p-2"
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: getActorColor(i) }} />
-                    <span className="text-xs font-semibold text-slate-200">{action.actor_id || action.actor}</span>
-                  </div>
-                  <div className="text-xs">
-                    <span className="text-cyan-400 font-medium">{action.action_type}</span>
-                    {action.target && <span className="text-slate-400"> → {action.target}</span>}
-                  </div>
-                  {action.rationale && (
-                    <p className="text-[10px] text-slate-500 mt-1 line-clamp-2">{action.rationale}</p>
-                  )}
-                </div>
-              ))}
+            {/* Action Flow Diagram */}
+            <div className="px-4">
+              <ActionFlowDiagram actions={turn.actions || []} />
             </div>
 
-            {/* Resolutions */}
-            {turn.resolutions?.length > 0 && (
-              <div className="mt-3 space-y-1">
-                {turn.resolutions.map((res: string, i: number) => (
-                  <p key={i} className="text-[10px] text-slate-400 font-mono">{res}</p>
-                ))}
-              </div>
-            )}
+            {/* Reasoning panels for each action */}
+            <div className="px-4 py-2 space-y-1">
+              {turn.actions?.map((action: any, i: number) => {
+                const trace = turn.traces?.find((t: any) => t.actor_id === (action.actor_id || action.actor));
+                const resolution = turn.resolutions?.find((r: string) => 
+                  r.toLowerCase().includes((action.actor_id || action.actor || '').toLowerCase())
+                );
+                // Attach public_statement from turn data if available
+                const publicStatement = turn.public_statements?.[action.actor_id || action.actor];
+                const enrichedAction = publicStatement
+                  ? { ...action, public_statement: publicStatement }
+                  : action;
+                return (
+                  <ReasoningPanel 
+                    key={i} 
+                    action={enrichedAction} 
+                    trace={trace}
+                    resolution={resolution}
+                    actorIndex={i}
+                  />
+                );
+              })}
+            </div>
 
-            {/* Scores */}
-            {turn.scores?.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {turn.scores.map((score: any, i: number) => (
-                  <span key={i} className="text-[10px] bg-slate-900 rounded px-2 py-0.5">
-                    <span style={{ color: getActorColor(i) }}>{score.actor_id || score.name}</span>
-                    <span className="text-slate-400 ml-1">{score.final_score?.toFixed(1) ?? score.total?.toFixed(1) ?? '?'}</span>
-                  </span>
-                ))}
-              </div>
-            )}
+            {/* Score delta bars */}
+            <div className="px-4 pb-4">
+              <ScoreDeltaBar 
+                scores={turn.scores || []} 
+                prevScores={idx > 0 ? liveTurns[idx - 1]?.scores : undefined}
+              />
+            </div>
           </motion.div>
         ))}
       </AnimatePresence>
