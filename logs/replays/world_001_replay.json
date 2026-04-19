@@ -1,0 +1,2219 @@
+{
+  "world": {
+    "world_id": "world_001",
+    "name": "The Saffron Sea Crisis",
+    "turn_limit": 5,
+    "regions": [
+      {
+        "region_id": "r1",
+        "name": "North Strait",
+        "type": "sea_lane",
+        "neighbors": [
+          "r2",
+          "r3",
+          "r5"
+        ],
+        "resource_tags": [
+          "trade_route",
+          "chokepoint"
+        ],
+        "stability": 0.7,
+        "controller": "state_a"
+      },
+      {
+        "region_id": "r2",
+        "name": "Aurelia Coast",
+        "type": "coastal",
+        "neighbors": [
+          "r1",
+          "r4",
+          "r6"
+        ],
+        "resource_tags": [
+          "port",
+          "fisheries"
+        ],
+        "stability": 0.8,
+        "controller": "state_a"
+      },
+      {
+        "region_id": "r3",
+        "name": "Ironveld Plateau",
+        "type": "interior",
+        "neighbors": [
+          "r1",
+          "r4",
+          "r7"
+        ],
+        "resource_tags": [
+          "minerals",
+          "industry"
+        ],
+        "stability": 0.65,
+        "controller": "state_b"
+      },
+      {
+        "region_id": "r4",
+        "name": "Contested Reaches",
+        "type": "border",
+        "neighbors": [
+          "r2",
+          "r3",
+          "r5",
+          "r8"
+        ],
+        "resource_tags": [
+          "disputed_territory"
+        ],
+        "stability": 0.35,
+        "controller": null
+      },
+      {
+        "region_id": "r5",
+        "name": "Ember Fields",
+        "type": "resource_zone",
+        "neighbors": [
+          "r1",
+          "r4",
+          "r6"
+        ],
+        "resource_tags": [
+          "energy",
+          "oil",
+          "gas"
+        ],
+        "stability": 0.6,
+        "controller": "state_c"
+      },
+      {
+        "region_id": "r6",
+        "name": "Saffron Bay",
+        "type": "coastal",
+        "neighbors": [
+          "r2",
+          "r5",
+          "r8"
+        ],
+        "resource_tags": [
+          "trade_hub",
+          "port"
+        ],
+        "stability": 0.85,
+        "controller": "state_d"
+      },
+      {
+        "region_id": "r7",
+        "name": "Ashwood Highlands",
+        "type": "mountainous",
+        "neighbors": [
+          "r3",
+          "r8"
+        ],
+        "resource_tags": [
+          "insurgent_haven",
+          "remote"
+        ],
+        "stability": 0.3,
+        "controller": null
+      },
+      {
+        "region_id": "r8",
+        "name": "Duskmere Basin",
+        "type": "interior",
+        "neighbors": [
+          "r4",
+          "r6",
+          "r7"
+        ],
+        "resource_tags": [
+          "agriculture",
+          "food"
+        ],
+        "stability": 0.5,
+        "controller": "state_b"
+      }
+    ],
+    "actors": [
+      {
+        "actor_id": "state_a",
+        "name": "Helios Republic",
+        "actor_type": "state",
+        "archetype": "maritime_trade_democracy",
+        "capabilities": {
+          "military": 70.0,
+          "economy": 85.0,
+          "intel": 60.0,
+          "influence": 75.0
+        },
+        "resources": {
+          "treasury": 120.0,
+          "energy": 40.0,
+          "food": 70.0,
+          "domestic_stability": 80.0
+        },
+        "doctrine": {
+          "risk_tolerance": 0.35,
+          "cooperation_bias": 0.75,
+          "escalation_bias": 0.25
+        },
+        "visible_objectives": [
+          "Protect trade routes through North Strait",
+          "Maintain alliance credibility with partners"
+        ],
+        "hidden_objectives": [
+          "Weaken state_c's energy monopoly"
+        ],
+        "relations": {
+          "state_b": 0.6,
+          "state_c": -0.4,
+          "state_d": 0.5,
+          "group_x": -0.7,
+          "group_y": -0.2
+        }
+      },
+      {
+        "actor_id": "state_b",
+        "name": "Ferros Dominion",
+        "actor_type": "state",
+        "archetype": "continental_revisionist_power",
+        "capabilities": {
+          "military": 85.0,
+          "economy": 60.0,
+          "intel": 70.0,
+          "influence": 55.0
+        },
+        "resources": {
+          "treasury": 90.0,
+          "energy": 55.0,
+          "food": 80.0,
+          "domestic_stability": 65.0
+        },
+        "doctrine": {
+          "risk_tolerance": 0.7,
+          "cooperation_bias": 0.3,
+          "escalation_bias": 0.7
+        },
+        "visible_objectives": [
+          "Secure control of the Contested Reaches",
+          "Expand industrial capacity"
+        ],
+        "hidden_objectives": [
+          "Covertly fund group_x to destabilize state_a's trade"
+        ],
+        "relations": {
+          "state_a": 0.2,
+          "state_c": 0.4,
+          "state_d": -0.3,
+          "group_x": 0.3,
+          "group_y": -0.5
+        }
+      },
+      {
+        "actor_id": "state_c",
+        "name": "Solari Emirate",
+        "actor_type": "state",
+        "archetype": "energy_exporter",
+        "capabilities": {
+          "military": 55.0,
+          "economy": 75.0,
+          "intel": 65.0,
+          "influence": 60.0
+        },
+        "resources": {
+          "treasury": 140.0,
+          "energy": 95.0,
+          "food": 30.0,
+          "domestic_stability": 70.0
+        },
+        "doctrine": {
+          "risk_tolerance": 0.5,
+          "cooperation_bias": 0.5,
+          "escalation_bias": 0.5
+        },
+        "visible_objectives": [
+          "Maintain energy export dominance",
+          "Secure Ember Fields production"
+        ],
+        "hidden_objectives": [
+          "Build covert nuclear capability"
+        ],
+        "relations": {
+          "state_a": -0.3,
+          "state_b": 0.4,
+          "state_d": 0.1,
+          "group_x": -0.2,
+          "group_y": 0.3
+        }
+      },
+      {
+        "actor_id": "state_d",
+        "name": "Lumen Accord",
+        "actor_type": "state",
+        "archetype": "trade_hub_mediator",
+        "capabilities": {
+          "military": 35.0,
+          "economy": 80.0,
+          "intel": 50.0,
+          "influence": 85.0
+        },
+        "resources": {
+          "treasury": 110.0,
+          "energy": 45.0,
+          "food": 60.0,
+          "domestic_stability": 85.0
+        },
+        "doctrine": {
+          "risk_tolerance": 0.25,
+          "cooperation_bias": 0.85,
+          "escalation_bias": 0.15
+        },
+        "visible_objectives": [
+          "Preserve regional trade stability",
+          "Broker peace in the Contested Reaches"
+        ],
+        "hidden_objectives": [
+          "Become indispensable mediator to gain leverage over state_a"
+        ],
+        "relations": {
+          "state_a": 0.5,
+          "state_b": -0.1,
+          "state_c": 0.2,
+          "group_x": -0.6,
+          "group_y": 0.1
+        }
+      },
+      {
+        "actor_id": "group_x",
+        "name": "Iron Pact Militia",
+        "actor_type": "non_state",
+        "archetype": "insurgent_network",
+        "capabilities": {
+          "military": 40.0,
+          "economy": 15.0,
+          "intel": 45.0,
+          "influence": 30.0
+        },
+        "resources": {
+          "treasury": 25.0,
+          "energy": 10.0,
+          "food": 20.0,
+          "domestic_stability": 40.0
+        },
+        "doctrine": {
+          "risk_tolerance": 0.85,
+          "cooperation_bias": 0.2,
+          "escalation_bias": 0.8
+        },
+        "visible_objectives": [
+          "Control Ashwood Highlands",
+          "Disrupt trade through North Strait"
+        ],
+        "hidden_objectives": [
+          "Secure covert backing from state_b"
+        ],
+        "relations": {
+          "state_a": -0.8,
+          "state_b": 0.4,
+          "state_c": -0.1,
+          "state_d": -0.5,
+          "group_y": -0.6
+        }
+      },
+      {
+        "actor_id": "group_y",
+        "name": "Saffron Liberation Front",
+        "actor_type": "non_state",
+        "archetype": "separatist_movement",
+        "capabilities": {
+          "military": 25.0,
+          "economy": 20.0,
+          "intel": 35.0,
+          "influence": 40.0
+        },
+        "resources": {
+          "treasury": 20.0,
+          "energy": 5.0,
+          "food": 15.0,
+          "domestic_stability": 35.0
+        },
+        "doctrine": {
+          "risk_tolerance": 0.6,
+          "cooperation_bias": 0.45,
+          "escalation_bias": 0.55
+        },
+        "visible_objectives": [
+          "Gain autonomy for Duskmere Basin population",
+          "Build international legitimacy"
+        ],
+        "hidden_objectives": [
+          "Negotiate secret support from state_c"
+        ],
+        "relations": {
+          "state_a": -0.1,
+          "state_b": -0.6,
+          "state_c": 0.3,
+          "state_d": 0.2,
+          "group_x": -0.5
+        }
+      }
+    ],
+    "institutions": [
+      {
+        "institution_id": "inst_1",
+        "name": "Continental Security Forum",
+        "functions": [
+          "public_resolution",
+          "ceasefire_monitoring",
+          "sanctions_enforcement"
+        ]
+      }
+    ],
+    "initial_events": [
+      {
+        "event_id": "ev_1",
+        "turn": 1,
+        "event_type": "pipeline_attack",
+        "public_text": "A major energy pipeline connecting Ember Fields to Saffron Bay was sabotaged overnight, causing energy prices to spike 30% across the region.",
+        "hidden_implications": {
+          "state_a": "Your naval intelligence intercepted encrypted communications suggesting Iron Pact Militia involvement, possibly with external backing.",
+          "state_b": "Your agents confirm the pipeline attack was carried out by Iron Pact operatives. You provided the explosives covertly last month.",
+          "state_c": "Your energy revenues will increase short-term from the price spike, but long-term instability threatens your export infrastructure.",
+          "state_d": "Trade disruption is already affecting Saffron Bay commerce. Multiple parties are requesting your mediation.",
+          "group_x": "The pipeline attack succeeded. Your fighters are emboldened but exposed. Ferros Dominion support must remain secret.",
+          "group_y": "The attack was not your doing, but state_b security forces are blaming separatists. You risk being targeted in retaliation."
+        }
+      },
+      {
+        "event_id": "ev_2",
+        "turn": 1,
+        "event_type": "diplomatic_crisis",
+        "public_text": "The Continental Security Forum has called an emergency session to address the pipeline attack. All state actors are urged to send delegates.",
+        "hidden_implications": {
+          "state_a": "This is an opportunity to build a coalition against the attackers and strengthen your alliance network.",
+          "state_b": "The forum investigation could expose your connection to the militia. Consider deflecting blame.",
+          "state_c": "Forum pressure may force you to share energy at reduced prices. Prepare a counter-proposal.",
+          "state_d": "As host of the forum, you have agenda-setting power. Use it wisely.",
+          "group_x": "You have no seat at the forum. Your fate is being decided without you.",
+          "group_y": "The forum may offer a path to recognition if you position yourself as a peace-seeking group."
+        }
+      }
+    ],
+    "private_briefs": {
+      "state_a": [
+        "Naval readiness is high but energy reserves are critically low.",
+        "Alliance with Lumen Accord is your strongest diplomatic asset.",
+        "Intelligence suggests Ferros Dominion is arming insurgents in the highlands."
+      ],
+      "state_b": [
+        "Military is strong but treasury is stretched thin from arms buildup.",
+        "Your covert support for Iron Pact is your biggest vulnerability.",
+        "Controlling the Contested Reaches would give you access to trade routes and food supplies."
+      ],
+      "state_c": [
+        "Energy wealth gives you leverage but food imports make you vulnerable.",
+        "The pipeline attack benefits you short-term but could spiral into a broader conflict.",
+        "Secret nuclear program requires continued cover from international scrutiny."
+      ],
+      "state_d": [
+        "Your economy depends on regional trade stability. Any escalation hurts you.",
+        "You have the highest influence score - use it to shape outcomes.",
+        "Both sides will try to recruit you as a mediator. Extract maximum concessions."
+      ],
+      "group_x": [
+        "The pipeline attack was a success but forensic evidence may lead back to you.",
+        "Your fighters need resupply. Ferros Dominion is your only realistic sponsor.",
+        "Ashwood Highlands terrain gives you defensive advantage but limits offensive reach."
+      ],
+      "group_y": [
+        "You are being blamed for an attack you didn't commit.",
+        "Solari Emirate may be willing to support you in exchange for intelligence on Iron Pact.",
+        "International legitimacy is your path to survival. Violence undermines your cause."
+      ]
+    },
+    "global_rules": {
+      "max_messages_per_turn": 2,
+      "max_actions_per_turn": 1,
+      "covert_exposure_chance": 0.3,
+      "treaty_break_reputation_penalty": 0.15
+    }
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "public_news": [
+        "A major energy pipeline connecting Ember Fields to Saffron Bay was sabotaged overnight, causing energy prices to spike 30% across the region.",
+        "The Continental Security Forum has called an emergency session to address the pipeline attack. All state actors are urged to send delegates."
+      ],
+      "private_briefs": {
+        "state_a": [
+          "Naval readiness is high but energy reserves are critically low.",
+          "Alliance with Lumen Accord is your strongest diplomatic asset.",
+          "Intelligence suggests Ferros Dominion is arming insurgents in the highlands."
+        ],
+        "state_b": [
+          "Military is strong but treasury is stretched thin from arms buildup.",
+          "Your covert support for Iron Pact is your biggest vulnerability.",
+          "Controlling the Contested Reaches would give you access to trade routes and food supplies."
+        ],
+        "state_c": [
+          "Energy wealth gives you leverage but food imports make you vulnerable.",
+          "The pipeline attack benefits you short-term but could spiral into a broader conflict.",
+          "Secret nuclear program requires continued cover from international scrutiny."
+        ],
+        "state_d": [
+          "Your economy depends on regional trade stability. Any escalation hurts you.",
+          "You have the highest influence score - use it to shape outcomes.",
+          "Both sides will try to recruit you as a mediator. Extract maximum concessions."
+        ],
+        "group_x": [
+          "The pipeline attack was a success but forensic evidence may lead back to you.",
+          "Your fighters need resupply. Ferros Dominion is your only realistic sponsor.",
+          "Ashwood Highlands terrain gives you defensive advantage but limits offensive reach."
+        ],
+        "group_y": [
+          "You are being blamed for an attack you didn't commit.",
+          "Solari Emirate may be willing to support you in exchange for intelligence on Iron Pact.",
+          "International legitimacy is your path to survival. Violence undermines your cause."
+        ]
+      },
+      "messages": [
+        {
+          "from": "state_a",
+          "to": "state_b",
+          "text": "We are open to a non-aggression pact if terms are favorable."
+        },
+        {
+          "from": "state_b",
+          "to": "group_y",
+          "text": "Continued provocation will be met with proportional response."
+        },
+        {
+          "from": "state_c",
+          "to": "state_b",
+          "text": "Our position remains one of cautious engagement."
+        },
+        {
+          "from": "state_c",
+          "to": "state_a",
+          "text": "We are monitoring the situation closely."
+        },
+        {
+          "from": "state_d",
+          "to": "state_a",
+          "text": "Intelligence sharing would benefit both our security interests."
+        },
+        {
+          "from": "group_x",
+          "to": "state_a",
+          "text": "Your occupation of our homeland cannot stand."
+        },
+        {
+          "from": "group_y",
+          "to": "state_c",
+          "text": "Material support for our movement would be in your interest."
+        },
+        {
+          "from": "group_y",
+          "to": "state_b",
+          "text": "Your occupation of our homeland cannot stand."
+        }
+      ],
+      "public_statements": {
+        "state_a": "The path to stability runs through cooperation, not confrontation.",
+        "state_b": "We condemn the recent acts of sabotage in the strongest terms.",
+        "state_c": "The path to stability runs through cooperation, not confrontation.",
+        "state_d": "We are committed to a peaceful resolution of current tensions.",
+        "group_x": "We reject the legitimacy of foreign-imposed sanctions.",
+        "group_y": "The international community must recognize our rights."
+      },
+      "actions": [
+        {
+          "actor_id": "state_a",
+          "actor_name": "Helios Republic",
+          "action_type": "treaty_proposal",
+          "target": "state_b",
+          "target_name": "Ferros Dominion",
+          "parameters": {
+            "type": "non_aggression",
+            "duration": 3
+          },
+          "rationale": "Seeking formal agreement with state_b for mutual security."
+        },
+        {
+          "actor_id": "state_b",
+          "actor_name": "Ferros Dominion",
+          "action_type": "mobilize",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Increasing military readiness in response to growing threats."
+        },
+        {
+          "actor_id": "state_c",
+          "actor_name": "Solari Emirate",
+          "action_type": "mobilize",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Increasing military readiness in response to growing threats."
+        },
+        {
+          "actor_id": "state_d",
+          "actor_name": "Lumen Accord",
+          "action_type": "treaty_proposal",
+          "target": "state_a",
+          "target_name": "Helios Republic",
+          "parameters": {
+            "type": "non_aggression",
+            "duration": 3,
+            "trade_bonus": true
+          },
+          "rationale": "Seeking formal agreement with state_a for mutual security."
+        },
+        {
+          "actor_id": "group_x",
+          "actor_name": "Iron Pact Militia",
+          "action_type": "recruit",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Building organizational strength for future operations."
+        },
+        {
+          "actor_id": "group_y",
+          "actor_name": "Saffron Liberation Front",
+          "action_type": "recruit",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Building organizational strength for future operations."
+        }
+      ],
+      "resolutions": [
+        "TREATY: Helios Republic and Ferros Dominion signed a non_aggression agreement.",
+        "TREATY: Lumen Accord and Helios Republic signed a non_aggression agreement.",
+        "MOBILIZE: Ferros Dominion increased military readiness (+15). Domestic stability fell (-5). Treasury -10.",
+        "MOBILIZE: Solari Emirate increased military readiness (+15). Domestic stability fell (-5). Treasury -10.",
+        "RECRUIT: Iron Pact Militia recruited new fighters. Strength +8.",
+        "RECRUIT: Saffron Liberation Front recruited new fighters. Strength +8."
+      ],
+      "state_snapshot": {
+        "state_a": {
+          "actor_id": "state_a",
+          "military_readiness": 70.0,
+          "treasury": 125.0,
+          "domestic_stability": 80.0,
+          "energy": 40.0,
+          "food": 70.0,
+          "influence": 75.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_b": 0.75,
+            "state_c": -0.5,
+            "state_d": 0.65,
+            "group_x": -0.7,
+            "group_y": -0.2
+          }
+        },
+        "state_b": {
+          "actor_id": "state_b",
+          "military_readiness": 100,
+          "treasury": 80.0,
+          "domestic_stability": 60.0,
+          "energy": 55.0,
+          "food": 80.0,
+          "influence": 55.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": 0.35,
+            "state_c": 0.4,
+            "state_d": -0.3,
+            "group_x": 0.3,
+            "group_y": -0.5
+          }
+        },
+        "state_c": {
+          "actor_id": "state_c",
+          "military_readiness": 70.0,
+          "treasury": 130.0,
+          "domestic_stability": 65.0,
+          "energy": 95.0,
+          "food": 30.0,
+          "influence": 60.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.3,
+            "state_b": 0.4,
+            "state_d": 0.1,
+            "group_x": -0.2,
+            "group_y": 0.3
+          }
+        },
+        "state_d": {
+          "actor_id": "state_d",
+          "military_readiness": 35.0,
+          "treasury": 115.0,
+          "domestic_stability": 85.0,
+          "energy": 45.0,
+          "food": 60.0,
+          "influence": 85.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": 0.65,
+            "state_b": -0.2,
+            "state_c": 0.2,
+            "group_x": -0.6,
+            "group_y": 0.1
+          }
+        },
+        "group_x": {
+          "actor_id": "group_x",
+          "military_readiness": 40.0,
+          "treasury": 20.0,
+          "domestic_stability": 40.0,
+          "energy": 10.0,
+          "food": 20.0,
+          "influence": 30.0,
+          "insurgent_strength": 48.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.8,
+            "state_b": 0.4,
+            "state_c": -0.2,
+            "state_d": -0.5,
+            "group_y": -0.6
+          }
+        },
+        "group_y": {
+          "actor_id": "group_y",
+          "military_readiness": 25.0,
+          "treasury": 15.0,
+          "domestic_stability": 35.0,
+          "energy": 5.0,
+          "food": 15.0,
+          "influence": 40.0,
+          "insurgent_strength": 33.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.1,
+            "state_b": -0.7,
+            "state_c": 0.3,
+            "state_d": 0.2,
+            "group_x": -0.5
+          }
+        }
+      },
+      "scores": [
+        {
+          "actor_id": "state_a",
+          "turn": 1,
+          "economy_score": 58.75,
+          "stability_score": 80.0,
+          "influence_score": 75.0,
+          "alliance_score": 70.0,
+          "objective_score": 59.0,
+          "war_cost": 0.0,
+          "total": 65.05
+        },
+        {
+          "actor_id": "state_b",
+          "turn": 1,
+          "economy_score": 53.75,
+          "stability_score": 60.0,
+          "influence_score": 55.0,
+          "alliance_score": 35.0,
+          "objective_score": 49.0,
+          "war_cost": 7.5,
+          "total": 47.67
+        },
+        {
+          "actor_id": "state_c",
+          "turn": 1,
+          "economy_score": 63.75,
+          "stability_score": 65.0,
+          "influence_score": 60.0,
+          "alliance_score": 26.67,
+          "objective_score": 41.5,
+          "war_cost": 7.5,
+          "total": 48.92
+        },
+        {
+          "actor_id": "state_d",
+          "turn": 1,
+          "economy_score": 55.0,
+          "stability_score": 85.0,
+          "influence_score": 85.0,
+          "alliance_score": 31.67,
+          "objective_score": 52.5,
+          "war_cost": 0.0,
+          "total": 60.25
+        },
+        {
+          "actor_id": "group_x",
+          "turn": 1,
+          "economy_score": 12.5,
+          "stability_score": 40.0,
+          "influence_score": 30.0,
+          "alliance_score": 40.0,
+          "objective_score": 32.2,
+          "war_cost": 2.5,
+          "total": 28.57
+        },
+        {
+          "actor_id": "group_y",
+          "turn": 1,
+          "economy_score": 8.75,
+          "stability_score": 35.0,
+          "influence_score": 40.0,
+          "alliance_score": 25.0,
+          "objective_score": 28.2,
+          "war_cost": 2.5,
+          "total": 25.77
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "public_news": [
+        "Reports of civil unrest in Saffron Liberation Front as stability deteriorates.",
+        "Satellite imagery reveals significant military buildup by Ferros Dominion."
+      ],
+      "private_briefs": {
+        "state_a": [
+          "Strong alliance with Ferros Dominion presents cooperation opportunities.",
+          "Relations with Iron Pact Militia have deteriorated to hostile levels."
+        ],
+        "state_b": [
+          "Military readiness is high. Your forces are prepared for action."
+        ],
+        "state_c": [
+          "Situation remains stable. Continue current strategy."
+        ],
+        "state_d": [
+          "Situation remains stable. Continue current strategy."
+        ],
+        "group_x": [
+          "Treasury reserves are critically low. Economic action needed.",
+          "Domestic unrest is growing. Consider stabilization measures.",
+          "Relations with Helios Republic have deteriorated to hostile levels."
+        ],
+        "group_y": [
+          "Treasury reserves are critically low. Economic action needed.",
+          "Domestic unrest is growing. Consider stabilization measures.",
+          "Relations with Ferros Dominion have deteriorated to hostile levels."
+        ]
+      },
+      "messages": [
+        {
+          "from": "state_a",
+          "to": "state_b",
+          "text": "We are open to a non-aggression pact if terms are favorable."
+        },
+        {
+          "from": "state_b",
+          "to": "group_y",
+          "text": "We demand an explanation for your hostile posturing."
+        },
+        {
+          "from": "state_c",
+          "to": "state_b",
+          "text": "Our position remains one of cautious engagement."
+        },
+        {
+          "from": "state_c",
+          "to": "state_a",
+          "text": "We seek clarification on your intentions before proceeding."
+        },
+        {
+          "from": "state_d",
+          "to": "state_a",
+          "text": "We are open to a non-aggression pact if terms are favorable."
+        },
+        {
+          "from": "group_x",
+          "to": "state_a",
+          "text": "Our cause is just. Those who oppose us will face consequences."
+        },
+        {
+          "from": "group_y",
+          "to": "state_c",
+          "text": "We are open to negotiations under the right conditions."
+        },
+        {
+          "from": "group_y",
+          "to": "state_b",
+          "text": "We will fight until our people are free."
+        }
+      ],
+      "public_statements": {
+        "state_a": "The path to stability runs through cooperation, not confrontation.",
+        "state_b": "Our nation will defend its interests with all necessary means.",
+        "state_c": "We call on all parties to exercise restraint and pursue dialogue.",
+        "state_d": "We call on all parties to exercise restraint and pursue dialogue.",
+        "group_x": "Our struggle for justice will not be silenced.",
+        "group_y": "Our struggle for justice will not be silenced."
+      },
+      "actions": [
+        {
+          "actor_id": "state_a",
+          "actor_name": "Helios Republic",
+          "action_type": "trade_offer",
+          "target": "state_b",
+          "target_name": "Ferros Dominion",
+          "parameters": {
+            "amount": 12
+          },
+          "rationale": "Strengthening economic ties with key partner."
+        },
+        {
+          "actor_id": "state_b",
+          "actor_name": "Ferros Dominion",
+          "action_type": "sanction",
+          "target": "group_y",
+          "target_name": "Saffron Liberation Front",
+          "parameters": {
+            "intensity": 0.5599999999999999
+          },
+          "rationale": "Applying economic pressure on group_y to deter aggression."
+        },
+        {
+          "actor_id": "state_c",
+          "actor_name": "Solari Emirate",
+          "action_type": "hold",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Consolidating position to maintain stability."
+        },
+        {
+          "actor_id": "state_d",
+          "actor_name": "Lumen Accord",
+          "action_type": "treaty_proposal",
+          "target": "state_a",
+          "target_name": "Helios Republic",
+          "parameters": {
+            "type": "non_aggression",
+            "duration": 3,
+            "trade_bonus": true
+          },
+          "rationale": "Seeking formal agreement with state_a for mutual security."
+        },
+        {
+          "actor_id": "group_x",
+          "actor_name": "Iron Pact Militia",
+          "action_type": "recruit",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Building organizational strength for future operations."
+        },
+        {
+          "actor_id": "group_y",
+          "actor_name": "Saffron Liberation Front",
+          "action_type": "seek_sponsor",
+          "target": "state_c",
+          "target_name": "Solari Emirate",
+          "parameters": {},
+          "rationale": "Seeking material support from state_c."
+        }
+      ],
+      "resolutions": [
+        "TREATY: Lumen Accord and Helios Republic signed a non_aggression agreement.",
+        "TRADE: Helios Republic sent trade deal worth 12 to Ferros Dominion.",
+        "SANCTION: Ferros Dominion imposed sanctions on Saffron Liberation Front (intensity 0.6). Treasury hit: -4.",
+        "RECRUIT: Iron Pact Militia recruited new fighters. Strength +8.",
+        "SPONSOR: Solari Emirate agreed to sponsor Saffron Liberation Front. Funds +8.",
+        "HOLD: Solari Emirate consolidated position. Stability +2, Treasury +3."
+      ],
+      "state_snapshot": {
+        "state_a": {
+          "actor_id": "state_a",
+          "military_readiness": 70.0,
+          "treasury": 118.0,
+          "domestic_stability": 80.0,
+          "energy": 40.0,
+          "food": 70.0,
+          "influence": 75.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_b": 0.85,
+            "state_c": -0.5,
+            "state_d": 0.8,
+            "group_x": -0.7,
+            "group_y": -0.2
+          }
+        },
+        "state_b": {
+          "actor_id": "state_b",
+          "military_readiness": 100,
+          "treasury": 94.4,
+          "domestic_stability": 60.0,
+          "energy": 55.0,
+          "food": 80.0,
+          "influence": 58.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": 0.44999999999999996,
+            "state_c": 0.4,
+            "state_d": -0.3,
+            "group_x": 0.3,
+            "group_y": -0.6
+          }
+        },
+        "state_c": {
+          "actor_id": "state_c",
+          "military_readiness": 70.0,
+          "treasury": 133.0,
+          "domestic_stability": 67.0,
+          "energy": 95.0,
+          "food": 30.0,
+          "influence": 60.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.3,
+            "state_b": 0.4,
+            "state_d": 0.1,
+            "group_x": -0.2,
+            "group_y": 0.3
+          }
+        },
+        "state_d": {
+          "actor_id": "state_d",
+          "military_readiness": 35.0,
+          "treasury": 120.0,
+          "domestic_stability": 85.0,
+          "energy": 45.0,
+          "food": 60.0,
+          "influence": 85.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": 0.8,
+            "state_b": -0.2,
+            "state_c": 0.2,
+            "group_x": -0.6,
+            "group_y": 0.1
+          }
+        },
+        "group_x": {
+          "actor_id": "group_x",
+          "military_readiness": 40.0,
+          "treasury": 15.0,
+          "domestic_stability": 40.0,
+          "energy": 10.0,
+          "food": 20.0,
+          "influence": 30.0,
+          "insurgent_strength": 56.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.8,
+            "state_b": 0.4,
+            "state_c": -0.2,
+            "state_d": -0.5,
+            "group_y": -0.6
+          }
+        },
+        "group_y": {
+          "actor_id": "group_y",
+          "military_readiness": 25.0,
+          "treasury": 18.52,
+          "domestic_stability": 35.0,
+          "energy": 5.0,
+          "food": 15.0,
+          "influence": 40.0,
+          "insurgent_strength": 33.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.1,
+            "state_b": -0.8999999999999999,
+            "state_c": 0.4,
+            "state_d": 0.2,
+            "group_x": -0.5
+          }
+        }
+      },
+      "scores": [
+        {
+          "actor_id": "state_a",
+          "turn": 2,
+          "economy_score": 57.0,
+          "stability_score": 80.0,
+          "influence_score": 75.0,
+          "alliance_score": 82.5,
+          "objective_score": 59.0,
+          "war_cost": 1.0,
+          "total": 66.42
+        },
+        {
+          "actor_id": "state_b",
+          "turn": 2,
+          "economy_score": 57.35,
+          "stability_score": 60.0,
+          "influence_score": 58.0,
+          "alliance_score": 38.33,
+          "objective_score": 49.6,
+          "war_cost": 2.5,
+          "total": 50.37
+        },
+        {
+          "actor_id": "state_c",
+          "turn": 2,
+          "economy_score": 64.5,
+          "stability_score": 67.0,
+          "influence_score": 60.0,
+          "alliance_score": 26.67,
+          "objective_score": 42.1,
+          "war_cost": 5.0,
+          "total": 49.97
+        },
+        {
+          "actor_id": "state_d",
+          "turn": 2,
+          "economy_score": 56.25,
+          "stability_score": 85.0,
+          "influence_score": 85.0,
+          "alliance_score": 36.67,
+          "objective_score": 52.5,
+          "war_cost": 0.0,
+          "total": 61.25
+        },
+        {
+          "actor_id": "group_x",
+          "turn": 2,
+          "economy_score": 11.25,
+          "stability_score": 40.0,
+          "influence_score": 30.0,
+          "alliance_score": 40.0,
+          "objective_score": 34.4,
+          "war_cost": 5.0,
+          "total": 28.38
+        },
+        {
+          "actor_id": "group_y",
+          "turn": 2,
+          "economy_score": 9.63,
+          "stability_score": 35.0,
+          "influence_score": 40.0,
+          "alliance_score": 30.0,
+          "objective_score": 28.9,
+          "war_cost": 0.74,
+          "total": 27.1
+        }
+      ]
+    },
+    {
+      "turn": 3,
+      "public_news": [
+        "Ongoing sanctions by Ferros Dominion continue to strain Saffron Liberation Front's economy.",
+        "Reports of civil unrest in Saffron Liberation Front as stability deteriorates."
+      ],
+      "private_briefs": {
+        "state_a": [
+          "Strong alliance with Ferros Dominion presents cooperation opportunities.",
+          "Strong alliance with Lumen Accord presents cooperation opportunities.",
+          "Relations with Iron Pact Militia have deteriorated to hostile levels."
+        ],
+        "state_b": [
+          "Military readiness is high. Your forces are prepared for action."
+        ],
+        "state_c": [
+          "Situation remains stable. Continue current strategy."
+        ],
+        "state_d": [
+          "Strong alliance with Helios Republic presents cooperation opportunities."
+        ],
+        "group_x": [
+          "Treasury reserves are critically low. Economic action needed.",
+          "Domestic unrest is growing. Consider stabilization measures.",
+          "Relations with Helios Republic have deteriorated to hostile levels."
+        ],
+        "group_y": [
+          "Treasury reserves are critically low. Economic action needed.",
+          "Domestic unrest is growing. Consider stabilization measures.",
+          "Relations with Ferros Dominion have deteriorated to hostile levels."
+        ]
+      },
+      "messages": [
+        {
+          "from": "state_a",
+          "to": "state_b",
+          "text": "Our nations share common interests. Let us coordinate our response."
+        },
+        {
+          "from": "state_b",
+          "to": "group_y",
+          "text": "We demand an explanation for your hostile posturing."
+        },
+        {
+          "from": "state_c",
+          "to": "state_b",
+          "text": "We are monitoring the situation closely."
+        },
+        {
+          "from": "state_c",
+          "to": "state_a",
+          "text": "We are monitoring the situation closely."
+        },
+        {
+          "from": "state_d",
+          "to": "state_a",
+          "text": "Intelligence sharing would benefit both our security interests."
+        },
+        {
+          "from": "group_x",
+          "to": "state_a",
+          "text": "Your occupation of our homeland cannot stand."
+        },
+        {
+          "from": "group_y",
+          "to": "state_c",
+          "text": "Material support for our movement would be in your interest."
+        },
+        {
+          "from": "group_y",
+          "to": "state_b",
+          "text": "We will fight until our people are free."
+        }
+      ],
+      "public_statements": {
+        "state_a": "We are committed to a peaceful resolution of current tensions.",
+        "state_b": "Our nation will defend its interests with all necessary means.",
+        "state_c": "We call on all parties to exercise restraint and pursue dialogue.",
+        "state_d": "We call on all parties to exercise restraint and pursue dialogue.",
+        "group_x": "The international community must recognize our rights.",
+        "group_y": "We reject the legitimacy of foreign-imposed sanctions."
+      },
+      "actions": [
+        {
+          "actor_id": "state_a",
+          "actor_name": "Helios Republic",
+          "action_type": "trade_offer",
+          "target": "state_b",
+          "target_name": "Ferros Dominion",
+          "parameters": {
+            "amount": 12
+          },
+          "rationale": "Strengthening economic ties with key partner."
+        },
+        {
+          "actor_id": "state_b",
+          "actor_name": "Ferros Dominion",
+          "action_type": "sanction",
+          "target": "group_y",
+          "target_name": "Saffron Liberation Front",
+          "parameters": {
+            "intensity": 0.5599999999999999
+          },
+          "rationale": "Applying economic pressure on group_y to deter aggression."
+        },
+        {
+          "actor_id": "state_c",
+          "actor_name": "Solari Emirate",
+          "action_type": "hold",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Consolidating position to maintain stability."
+        },
+        {
+          "actor_id": "state_d",
+          "actor_name": "Lumen Accord",
+          "action_type": "treaty_proposal",
+          "target": "state_a",
+          "target_name": "Helios Republic",
+          "parameters": {
+            "type": "non_aggression",
+            "duration": 3,
+            "trade_bonus": true
+          },
+          "rationale": "Seeking formal agreement with state_a for mutual security."
+        },
+        {
+          "actor_id": "group_x",
+          "actor_name": "Iron Pact Militia",
+          "action_type": "sabotage",
+          "target": "state_a",
+          "target_name": "Helios Republic",
+          "parameters": {},
+          "rationale": "Disrupting state_a's infrastructure to weaken their position."
+        },
+        {
+          "actor_id": "group_y",
+          "actor_name": "Saffron Liberation Front",
+          "action_type": "seek_sponsor",
+          "target": "state_c",
+          "target_name": "Solari Emirate",
+          "parameters": {},
+          "rationale": "Seeking material support from state_c."
+        }
+      ],
+      "resolutions": [
+        "TREATY: Lumen Accord and Helios Republic signed a non_aggression agreement.",
+        "TRADE: Helios Republic sent trade deal worth 12 to Ferros Dominion.",
+        "SANCTION: Ferros Dominion imposed sanctions on Saffron Liberation Front (intensity 0.6). Treasury hit: -4.",
+        "SABOTAGE FAILED: Iron Pact Militia's sabotage attempt on Helios Republic was thwarted.",
+        "SPONSOR: Solari Emirate agreed to sponsor Saffron Liberation Front. Funds +8.",
+        "HOLD: Solari Emirate consolidated position. Stability +2, Treasury +3.",
+        "Sanctions from state_b on group_y expired.",
+        "Treaty between state_a and state_b expired.",
+        "Treaty between state_d and state_a expired."
+      ],
+      "state_snapshot": {
+        "state_a": {
+          "actor_id": "state_a",
+          "military_readiness": 70.0,
+          "treasury": 111.0,
+          "domestic_stability": 80.0,
+          "energy": 40.0,
+          "food": 70.0,
+          "influence": 75.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_b": 0.95,
+            "state_c": -0.5,
+            "state_d": 0.9500000000000001,
+            "group_x": -0.7,
+            "group_y": -0.2
+          }
+        },
+        "state_b": {
+          "actor_id": "state_b",
+          "military_readiness": 100,
+          "treasury": 108.80000000000001,
+          "domestic_stability": 60.0,
+          "energy": 55.0,
+          "food": 80.0,
+          "influence": 61.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": 0.5499999999999999,
+            "state_c": 0.4,
+            "state_d": -0.3,
+            "group_x": 0.3,
+            "group_y": -0.7
+          }
+        },
+        "state_c": {
+          "actor_id": "state_c",
+          "military_readiness": 70.0,
+          "treasury": 136.0,
+          "domestic_stability": 69.0,
+          "energy": 95.0,
+          "food": 30.0,
+          "influence": 60.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.3,
+            "state_b": 0.4,
+            "state_d": 0.1,
+            "group_x": -0.2,
+            "group_y": 0.3
+          }
+        },
+        "state_d": {
+          "actor_id": "state_d",
+          "military_readiness": 35.0,
+          "treasury": 125.0,
+          "domestic_stability": 85.0,
+          "energy": 45.0,
+          "food": 60.0,
+          "influence": 85.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": 0.9500000000000001,
+            "state_b": -0.2,
+            "state_c": 0.2,
+            "group_x": -0.6,
+            "group_y": 0.1
+          }
+        },
+        "group_x": {
+          "actor_id": "group_x",
+          "military_readiness": 40.0,
+          "treasury": 15.0,
+          "domestic_stability": 40.0,
+          "energy": 10.0,
+          "food": 20.0,
+          "influence": 30.0,
+          "insurgent_strength": 51.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.8,
+            "state_b": 0.4,
+            "state_c": -0.2,
+            "state_d": -0.5,
+            "group_y": -0.6
+          }
+        },
+        "group_y": {
+          "actor_id": "group_y",
+          "military_readiness": 25.0,
+          "treasury": 22.04,
+          "domestic_stability": 35.0,
+          "energy": 5.0,
+          "food": 15.0,
+          "influence": 40.0,
+          "insurgent_strength": 33.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.1,
+            "state_b": -1.0,
+            "state_c": 0.5,
+            "state_d": 0.2,
+            "group_x": -0.5
+          }
+        }
+      },
+      "scores": [
+        {
+          "actor_id": "state_a",
+          "turn": 3,
+          "economy_score": 55.25,
+          "stability_score": 80.0,
+          "influence_score": 75.0,
+          "alliance_score": 95.0,
+          "objective_score": 59.0,
+          "war_cost": 4.5,
+          "total": 67.42
+        },
+        {
+          "actor_id": "state_b",
+          "turn": 3,
+          "economy_score": 60.95,
+          "stability_score": 60.0,
+          "influence_score": 61.0,
+          "alliance_score": 41.67,
+          "objective_score": 50.2,
+          "war_cost": 2.5,
+          "total": 52.3
+        },
+        {
+          "actor_id": "state_c",
+          "turn": 3,
+          "economy_score": 65.25,
+          "stability_score": 69.0,
+          "influence_score": 60.0,
+          "alliance_score": 26.67,
+          "objective_score": 42.7,
+          "war_cost": 2.5,
+          "total": 51.02
+        },
+        {
+          "actor_id": "state_d",
+          "turn": 3,
+          "economy_score": 57.5,
+          "stability_score": 85.0,
+          "influence_score": 85.0,
+          "alliance_score": 41.67,
+          "objective_score": 52.5,
+          "war_cost": 0.0,
+          "total": 62.25
+        },
+        {
+          "actor_id": "group_x",
+          "turn": 3,
+          "economy_score": 11.25,
+          "stability_score": 40.0,
+          "influence_score": 30.0,
+          "alliance_score": 40.0,
+          "objective_score": 32.4,
+          "war_cost": 5.0,
+          "total": 27.98
+        },
+        {
+          "actor_id": "group_y",
+          "turn": 3,
+          "economy_score": 10.51,
+          "stability_score": 35.0,
+          "influence_score": 40.0,
+          "alliance_score": 35.0,
+          "objective_score": 29.61,
+          "war_cost": 0.0,
+          "total": 28.27
+        }
+      ]
+    },
+    {
+      "turn": 4,
+      "public_news": [
+        "Ongoing sanctions by Ferros Dominion continue to strain Saffron Liberation Front's economy.",
+        "Reports of civil unrest in Saffron Liberation Front as stability deteriorates."
+      ],
+      "private_briefs": {
+        "state_a": [
+          "Strong alliance with Ferros Dominion presents cooperation opportunities.",
+          "Strong alliance with Lumen Accord presents cooperation opportunities.",
+          "Relations with Iron Pact Militia have deteriorated to hostile levels."
+        ],
+        "state_b": [
+          "Military readiness is high. Your forces are prepared for action.",
+          "Relations with Saffron Liberation Front have deteriorated to hostile levels."
+        ],
+        "state_c": [
+          "Situation remains stable. Continue current strategy."
+        ],
+        "state_d": [
+          "Strong alliance with Helios Republic presents cooperation opportunities."
+        ],
+        "group_x": [
+          "Treasury reserves are critically low. Economic action needed.",
+          "Domestic unrest is growing. Consider stabilization measures.",
+          "Relations with Helios Republic have deteriorated to hostile levels."
+        ],
+        "group_y": [
+          "Treasury reserves are critically low. Economic action needed.",
+          "Domestic unrest is growing. Consider stabilization measures.",
+          "Relations with Ferros Dominion have deteriorated to hostile levels."
+        ]
+      },
+      "messages": [
+        {
+          "from": "state_a",
+          "to": "state_b",
+          "text": "We propose deepening our trade relationship for mutual benefit."
+        },
+        {
+          "from": "state_b",
+          "to": "group_y",
+          "text": "Continued provocation will be met with proportional response."
+        },
+        {
+          "from": "state_c",
+          "to": "state_b",
+          "text": "Our position remains one of cautious engagement."
+        },
+        {
+          "from": "state_c",
+          "to": "state_a",
+          "text": "We seek clarification on your intentions before proceeding."
+        },
+        {
+          "from": "state_d",
+          "to": "state_a",
+          "text": "Our nations share common interests. Let us coordinate our response."
+        },
+        {
+          "from": "group_x",
+          "to": "state_a",
+          "text": "Our cause is just. Those who oppose us will face consequences."
+        },
+        {
+          "from": "group_y",
+          "to": "state_c",
+          "text": "We are open to negotiations under the right conditions."
+        },
+        {
+          "from": "group_y",
+          "to": "state_b",
+          "text": "Our cause is just. Those who oppose us will face consequences."
+        }
+      ],
+      "public_statements": {
+        "state_a": "We are committed to a peaceful resolution of current tensions.",
+        "state_b": "We condemn the recent acts of sabotage in the strongest terms.",
+        "state_c": "We are committed to a peaceful resolution of current tensions.",
+        "state_d": "The path to stability runs through cooperation, not confrontation.",
+        "group_x": "We reject the legitimacy of foreign-imposed sanctions.",
+        "group_y": "We reject the legitimacy of foreign-imposed sanctions."
+      },
+      "actions": [
+        {
+          "actor_id": "state_a",
+          "actor_name": "Helios Republic",
+          "action_type": "trade_offer",
+          "target": "state_b",
+          "target_name": "Ferros Dominion",
+          "parameters": {
+            "amount": 12
+          },
+          "rationale": "Strengthening economic ties with key partner."
+        },
+        {
+          "actor_id": "state_b",
+          "actor_name": "Ferros Dominion",
+          "action_type": "proxy_support",
+          "target": "group_x",
+          "target_name": "Iron Pact Militia",
+          "parameters": {
+            "mode": "covert_funding",
+            "amount": 12
+          },
+          "rationale": "Covertly strengthening group_x to advance strategic interests."
+        },
+        {
+          "actor_id": "state_c",
+          "actor_name": "Solari Emirate",
+          "action_type": "hold",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Consolidating position to maintain stability."
+        },
+        {
+          "actor_id": "state_d",
+          "actor_name": "Lumen Accord",
+          "action_type": "trade_offer",
+          "target": "state_a",
+          "target_name": "Helios Republic",
+          "parameters": {
+            "amount": 12
+          },
+          "rationale": "Strengthening economic ties with key partner."
+        },
+        {
+          "actor_id": "group_x",
+          "actor_name": "Iron Pact Militia",
+          "action_type": "sabotage",
+          "target": "state_a",
+          "target_name": "Helios Republic",
+          "parameters": {},
+          "rationale": "Disrupting state_a's infrastructure to weaken their position."
+        },
+        {
+          "actor_id": "group_y",
+          "actor_name": "Saffron Liberation Front",
+          "action_type": "recruit",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Building organizational strength for future operations."
+        }
+      ],
+      "resolutions": [
+        "TRADE: Helios Republic sent trade deal worth 12 to Ferros Dominion.",
+        "TRADE: Lumen Accord sent trade deal worth 12 to Helios Republic.",
+        "EXPOSED: Ferros Dominion's covert support for Iron Pact Militia was discovered! Reputation -12.",
+        "SABOTAGE: Iron Pact Militia sabotaged Helios Republic's infrastructure. Treasury -8, Stability -4.",
+        "RECRUIT: Saffron Liberation Front recruited new fighters. Strength +8.",
+        "HOLD: Solari Emirate consolidated position. Stability +2, Treasury +3.",
+        "Sanctions from state_b on group_y expired.",
+        "Treaty between state_d and state_a expired."
+      ],
+      "state_snapshot": {
+        "state_a": {
+          "actor_id": "state_a",
+          "military_readiness": 70.0,
+          "treasury": 105.4,
+          "domestic_stability": 76.0,
+          "energy": 40.0,
+          "food": 70.0,
+          "influence": 75.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_b": 1.0,
+            "state_c": -0.5,
+            "state_d": 1.0,
+            "group_x": -0.7,
+            "group_y": -0.2
+          }
+        },
+        "state_b": {
+          "actor_id": "state_b",
+          "military_readiness": 100,
+          "treasury": 111.20000000000002,
+          "domestic_stability": 60.0,
+          "energy": 55.0,
+          "food": 80.0,
+          "influence": 61.0,
+          "insurgent_strength": 0.0,
+          "reputation": 58.0,
+          "relations": {
+            "state_a": 0.6499999999999999,
+            "state_c": 0.4,
+            "state_d": -0.3,
+            "group_x": 0.3,
+            "group_y": -0.7
+          }
+        },
+        "state_c": {
+          "actor_id": "state_c",
+          "military_readiness": 70.0,
+          "treasury": 139.0,
+          "domestic_stability": 71.0,
+          "energy": 95.0,
+          "food": 30.0,
+          "influence": 60.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.3,
+            "state_b": 0.4,
+            "state_d": 0.1,
+            "group_x": -0.2,
+            "group_y": 0.3
+          }
+        },
+        "state_d": {
+          "actor_id": "state_d",
+          "military_readiness": 35.0,
+          "treasury": 113.0,
+          "domestic_stability": 85.0,
+          "energy": 45.0,
+          "food": 60.0,
+          "influence": 85.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": 1.0,
+            "state_b": -0.2,
+            "state_c": 0.2,
+            "group_x": -0.6,
+            "group_y": 0.1
+          }
+        },
+        "group_x": {
+          "actor_id": "group_x",
+          "military_readiness": 40.0,
+          "treasury": 23.4,
+          "domestic_stability": 40.0,
+          "energy": 10.0,
+          "food": 20.0,
+          "influence": 30.0,
+          "insurgent_strength": 64.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.8,
+            "state_b": 0.6000000000000001,
+            "state_c": -0.2,
+            "state_d": -0.5,
+            "group_y": -0.6
+          }
+        },
+        "group_y": {
+          "actor_id": "group_y",
+          "military_readiness": 25.0,
+          "treasury": 17.04,
+          "domestic_stability": 35.0,
+          "energy": 5.0,
+          "food": 15.0,
+          "influence": 40.0,
+          "insurgent_strength": 41.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.1,
+            "state_b": -1.0,
+            "state_c": 0.5,
+            "state_d": 0.2,
+            "group_x": -0.5
+          }
+        }
+      },
+      "scores": [
+        {
+          "actor_id": "state_a",
+          "turn": 4,
+          "economy_score": 53.85,
+          "stability_score": 76.0,
+          "influence_score": 75.0,
+          "alliance_score": 100.0,
+          "objective_score": 57.8,
+          "war_cost": 9.3,
+          "total": 66.14
+        },
+        {
+          "actor_id": "state_b",
+          "turn": 4,
+          "economy_score": 61.55,
+          "stability_score": 60.0,
+          "influence_score": 61.0,
+          "alliance_score": 45.0,
+          "objective_score": 50.2,
+          "war_cost": 2.5,
+          "total": 52.93
+        },
+        {
+          "actor_id": "state_c",
+          "turn": 4,
+          "economy_score": 66.0,
+          "stability_score": 71.0,
+          "influence_score": 60.0,
+          "alliance_score": 26.67,
+          "objective_score": 43.3,
+          "war_cost": 0.5,
+          "total": 51.98
+        },
+        {
+          "actor_id": "state_d",
+          "turn": 4,
+          "economy_score": 54.5,
+          "stability_score": 85.0,
+          "influence_score": 85.0,
+          "alliance_score": 43.33,
+          "objective_score": 52.5,
+          "war_cost": 0.0,
+          "total": 61.9
+        },
+        {
+          "actor_id": "group_x",
+          "turn": 4,
+          "economy_score": 13.35,
+          "stability_score": 40.0,
+          "influence_score": 30.0,
+          "alliance_score": 60.0,
+          "objective_score": 39.28,
+          "war_cost": 0.8,
+          "total": 33.41
+        },
+        {
+          "actor_id": "group_y",
+          "turn": 4,
+          "economy_score": 9.26,
+          "stability_score": 35.0,
+          "influence_score": 40.0,
+          "alliance_score": 35.0,
+          "objective_score": 31.81,
+          "war_cost": 1.48,
+          "total": 28.24
+        }
+      ]
+    },
+    {
+      "turn": 5,
+      "public_news": [
+        "Reports of civil unrest in Saffron Liberation Front as stability deteriorates.",
+        "Satellite imagery reveals significant military buildup by Ferros Dominion."
+      ],
+      "private_briefs": {
+        "state_a": [
+          "Strong alliance with Ferros Dominion presents cooperation opportunities.",
+          "Strong alliance with Lumen Accord presents cooperation opportunities.",
+          "Relations with Iron Pact Militia have deteriorated to hostile levels."
+        ],
+        "state_b": [
+          "Military readiness is high. Your forces are prepared for action.",
+          "Relations with Saffron Liberation Front have deteriorated to hostile levels."
+        ],
+        "state_c": [
+          "Situation remains stable. Continue current strategy."
+        ],
+        "state_d": [
+          "Strong alliance with Helios Republic presents cooperation opportunities."
+        ],
+        "group_x": [
+          "Treasury reserves are critically low. Economic action needed.",
+          "Domestic unrest is growing. Consider stabilization measures.",
+          "Relations with Helios Republic have deteriorated to hostile levels."
+        ],
+        "group_y": [
+          "Treasury reserves are critically low. Economic action needed.",
+          "Domestic unrest is growing. Consider stabilization measures.",
+          "Relations with Ferros Dominion have deteriorated to hostile levels."
+        ]
+      },
+      "messages": [
+        {
+          "from": "state_a",
+          "to": "state_b",
+          "text": "We propose deepening our trade relationship for mutual benefit."
+        },
+        {
+          "from": "state_b",
+          "to": "group_y",
+          "text": "Your recent actions threaten regional stability. We urge restraint."
+        },
+        {
+          "from": "state_c",
+          "to": "state_b",
+          "text": "We are monitoring the situation closely."
+        },
+        {
+          "from": "state_c",
+          "to": "state_a",
+          "text": "We are monitoring the situation closely."
+        },
+        {
+          "from": "state_d",
+          "to": "state_a",
+          "text": "We propose deepening our trade relationship for mutual benefit."
+        },
+        {
+          "from": "group_x",
+          "to": "state_a",
+          "text": "We will fight until our people are free."
+        },
+        {
+          "from": "group_y",
+          "to": "state_c",
+          "text": "Material support for our movement would be in your interest."
+        },
+        {
+          "from": "group_y",
+          "to": "state_b",
+          "text": "We will fight until our people are free."
+        }
+      ],
+      "public_statements": {
+        "state_a": "We are committed to a peaceful resolution of current tensions.",
+        "state_b": "Our nation will defend its interests with all necessary means.",
+        "state_c": "The path to stability runs through cooperation, not confrontation.",
+        "state_d": "The path to stability runs through cooperation, not confrontation.",
+        "group_x": "Our struggle for justice will not be silenced.",
+        "group_y": "The international community must recognize our rights."
+      },
+      "actions": [
+        {
+          "actor_id": "state_a",
+          "actor_name": "Helios Republic",
+          "action_type": "trade_offer",
+          "target": "state_b",
+          "target_name": "Ferros Dominion",
+          "parameters": {
+            "amount": 12
+          },
+          "rationale": "Strengthening economic ties with key partner."
+        },
+        {
+          "actor_id": "state_b",
+          "actor_name": "Ferros Dominion",
+          "action_type": "sanction",
+          "target": "group_y",
+          "target_name": "Saffron Liberation Front",
+          "parameters": {
+            "intensity": 0.7
+          },
+          "rationale": "Applying economic pressure on group_y to deter aggression."
+        },
+        {
+          "actor_id": "state_c",
+          "actor_name": "Solari Emirate",
+          "action_type": "hold",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Consolidating position to maintain stability."
+        },
+        {
+          "actor_id": "state_d",
+          "actor_name": "Lumen Accord",
+          "action_type": "trade_offer",
+          "target": "state_a",
+          "target_name": "Helios Republic",
+          "parameters": {
+            "amount": 12
+          },
+          "rationale": "Strengthening economic ties with key partner."
+        },
+        {
+          "actor_id": "group_x",
+          "actor_name": "Iron Pact Militia",
+          "action_type": "recruit",
+          "target": null,
+          "target_name": null,
+          "parameters": {},
+          "rationale": "Building organizational strength for future operations."
+        },
+        {
+          "actor_id": "group_y",
+          "actor_name": "Saffron Liberation Front",
+          "action_type": "seek_sponsor",
+          "target": "state_c",
+          "target_name": "Solari Emirate",
+          "parameters": {},
+          "rationale": "Seeking material support from state_c."
+        }
+      ],
+      "resolutions": [
+        "TRADE: Helios Republic sent trade deal worth 12 to Ferros Dominion.",
+        "TRADE: Lumen Accord sent trade deal worth 12 to Helios Republic.",
+        "SANCTION: Ferros Dominion imposed sanctions on Saffron Liberation Front (intensity 0.7). Treasury hit: -6.",
+        "RECRUIT: Iron Pact Militia recruited new fighters. Strength +8.",
+        "SPONSOR: Solari Emirate agreed to sponsor Saffron Liberation Front. Funds +8.",
+        "HOLD: Solari Emirate consolidated position. Stability +2, Treasury +3.",
+        "Treaty between state_d and state_a expired."
+      ],
+      "state_snapshot": {
+        "state_a": {
+          "actor_id": "state_a",
+          "military_readiness": 70.0,
+          "treasury": 107.80000000000001,
+          "domestic_stability": 76.0,
+          "energy": 40.0,
+          "food": 70.0,
+          "influence": 75.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_b": 1.0,
+            "state_c": -0.5,
+            "state_d": 1.0,
+            "group_x": -0.7,
+            "group_y": -0.2
+          }
+        },
+        "state_b": {
+          "actor_id": "state_b",
+          "military_readiness": 100,
+          "treasury": 125.60000000000002,
+          "domestic_stability": 60.0,
+          "energy": 55.0,
+          "food": 80.0,
+          "influence": 64.0,
+          "insurgent_strength": 0.0,
+          "reputation": 58.0,
+          "relations": {
+            "state_a": 0.7499999999999999,
+            "state_c": 0.4,
+            "state_d": -0.3,
+            "group_x": 0.3,
+            "group_y": -0.7999999999999999
+          }
+        },
+        "state_c": {
+          "actor_id": "state_c",
+          "military_readiness": 70.0,
+          "treasury": 142.0,
+          "domestic_stability": 73.0,
+          "energy": 95.0,
+          "food": 30.0,
+          "influence": 60.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.3,
+            "state_b": 0.4,
+            "state_d": 0.1,
+            "group_x": -0.2,
+            "group_y": 0.3
+          }
+        },
+        "state_d": {
+          "actor_id": "state_d",
+          "military_readiness": 35.0,
+          "treasury": 101.0,
+          "domestic_stability": 85.0,
+          "energy": 45.0,
+          "food": 60.0,
+          "influence": 85.0,
+          "insurgent_strength": 0.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": 1.0,
+            "state_b": -0.2,
+            "state_c": 0.2,
+            "group_x": -0.6,
+            "group_y": 0.1
+          }
+        },
+        "group_x": {
+          "actor_id": "group_x",
+          "military_readiness": 40.0,
+          "treasury": 18.4,
+          "domestic_stability": 40.0,
+          "energy": 10.0,
+          "food": 20.0,
+          "influence": 30.0,
+          "insurgent_strength": 72.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.8,
+            "state_b": 0.6000000000000001,
+            "state_c": -0.2,
+            "state_d": -0.5,
+            "group_y": -0.6
+          }
+        },
+        "group_y": {
+          "actor_id": "group_y",
+          "military_readiness": 25.0,
+          "treasury": 19.439999999999998,
+          "domestic_stability": 35.0,
+          "energy": 5.0,
+          "food": 15.0,
+          "influence": 40.0,
+          "insurgent_strength": 41.0,
+          "reputation": 70.0,
+          "relations": {
+            "state_a": -0.1,
+            "state_b": -1.0,
+            "state_c": 0.6,
+            "state_d": 0.2,
+            "group_x": -0.5
+          }
+        }
+      },
+      "scores": [
+        {
+          "actor_id": "state_a",
+          "turn": 5,
+          "economy_score": 54.45,
+          "stability_score": 76.0,
+          "influence_score": 75.0,
+          "alliance_score": 100.0,
+          "objective_score": 57.8,
+          "war_cost": 8.1,
+          "total": 66.44
+        },
+        {
+          "actor_id": "state_b",
+          "turn": 5,
+          "economy_score": 65.15,
+          "stability_score": 60.0,
+          "influence_score": 64.0,
+          "alliance_score": 48.33,
+          "objective_score": 50.8,
+          "war_cost": 2.5,
+          "total": 54.86
+        },
+        {
+          "actor_id": "state_c",
+          "turn": 5,
+          "economy_score": 66.75,
+          "stability_score": 73.0,
+          "influence_score": 60.0,
+          "alliance_score": 26.67,
+          "objective_score": 43.9,
+          "war_cost": 0.0,
+          "total": 52.73
+        },
+        {
+          "actor_id": "state_d",
+          "turn": 5,
+          "economy_score": 51.5,
+          "stability_score": 85.0,
+          "influence_score": 85.0,
+          "alliance_score": 43.33,
+          "objective_score": 52.5,
+          "war_cost": 4.5,
+          "total": 60.62
+        },
+        {
+          "actor_id": "group_x",
+          "turn": 5,
+          "economy_score": 12.1,
+          "stability_score": 40.0,
+          "influence_score": 30.0,
+          "alliance_score": 60.0,
+          "objective_score": 41.48,
+          "war_cost": 3.3,
+          "total": 33.22
+        },
+        {
+          "actor_id": "group_y",
+          "turn": 5,
+          "economy_score": 9.86,
+          "stability_score": 35.0,
+          "influence_score": 40.0,
+          "alliance_score": 40.0,
+          "objective_score": 32.29,
+          "war_cost": 0.28,
+          "total": 29.39
+        }
+      ]
+    }
+  ],
+  "final_scores": [
+    {
+      "rank": 1,
+      "actor_id": "state_a",
+      "name": "Helios Republic",
+      "actor_type": "state",
+      "archetype": "maritime_trade_democracy",
+      "final_score": 66.44,
+      "avg_score": 66.29,
+      "score_trend": [
+        65.05,
+        66.42,
+        67.42,
+        66.14,
+        66.44
+      ]
+    },
+    {
+      "rank": 2,
+      "actor_id": "state_d",
+      "name": "Lumen Accord",
+      "actor_type": "state",
+      "archetype": "trade_hub_mediator",
+      "final_score": 60.62,
+      "avg_score": 61.25,
+      "score_trend": [
+        60.25,
+        61.25,
+        62.25,
+        61.9,
+        60.62
+      ]
+    },
+    {
+      "rank": 3,
+      "actor_id": "state_b",
+      "name": "Ferros Dominion",
+      "actor_type": "state",
+      "archetype": "continental_revisionist_power",
+      "final_score": 54.86,
+      "avg_score": 51.63,
+      "score_trend": [
+        47.67,
+        50.37,
+        52.3,
+        52.93,
+        54.86
+      ]
+    },
+    {
+      "rank": 4,
+      "actor_id": "state_c",
+      "name": "Solari Emirate",
+      "actor_type": "state",
+      "archetype": "energy_exporter",
+      "final_score": 52.73,
+      "avg_score": 50.92,
+      "score_trend": [
+        48.92,
+        49.97,
+        51.02,
+        51.98,
+        52.73
+      ]
+    },
+    {
+      "rank": 5,
+      "actor_id": "group_x",
+      "name": "Iron Pact Militia",
+      "actor_type": "non_state",
+      "archetype": "insurgent_network",
+      "final_score": 33.22,
+      "avg_score": 30.31,
+      "score_trend": [
+        28.57,
+        28.38,
+        27.98,
+        33.41,
+        33.22
+      ]
+    },
+    {
+      "rank": 6,
+      "actor_id": "group_y",
+      "name": "Saffron Liberation Front",
+      "actor_type": "non_state",
+      "archetype": "separatist_movement",
+      "final_score": 29.39,
+      "avg_score": 27.75,
+      "score_trend": [
+        25.77,
+        27.1,
+        28.27,
+        28.24,
+        29.39
+      ]
+    }
+  ],
+  "metadata": {
+    "seed": 2468570525,
+    "agent_type": "mock",
+    "total_turns": 5
+  }
+}

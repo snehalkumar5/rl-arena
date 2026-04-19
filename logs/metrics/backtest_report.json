@@ -1,0 +1,492 @@
+{
+  "scenario": "hormuz_apr8",
+  "baseline_date": "2026-04-08",
+  "agent_type": "mock",
+  "llm_model": "N/A",
+  "disclaimer": "SIMULATION OUTPUTS ARE SPECULATIVE. NOT AN INTELLIGENCE PRODUCT.",
+  "turn_comparisons": [
+    {
+      "turn": 1,
+      "label": "Fragile Ceasefire (Apr 8-9)",
+      "date_range": "April 8-9, 2026",
+      "actor_matches": [
+        {
+          "actor_id": "iran",
+          "real_action": "sanction",
+          "real_description": "Imposed toll regime on Hormuz transit, IRGC coordination required",
+          "sim_action": "mobilize",
+          "sim_target": null,
+          "sim_rationale": "Increasing military readiness in response to growing threats.",
+          "score": 0.5,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "usa",
+          "real_action": "mobilize",
+          "real_description": "Maintained naval presence, mine-clearing operations continued",
+          "sim_action": "mobilize",
+          "sim_target": null,
+          "sim_rationale": "Increasing military readiness in response to growing threats.",
+          "score": 1.0,
+          "match": "EXACT"
+        },
+        {
+          "actor_id": "israel",
+          "real_action": "mobilize",
+          "real_description": "Continued Lebanon operations despite ceasefire",
+          "sim_action": "mobilize",
+          "sim_target": null,
+          "sim_rationale": "Increasing military readiness in response to growing threats.",
+          "score": 1.0,
+          "match": "EXACT"
+        },
+        {
+          "actor_id": "saudi",
+          "real_action": "hold",
+          "real_description": "Exercised restraint, relied on Red Sea bypass pipeline",
+          "sim_action": "treaty_proposal",
+          "sim_target": "usa",
+          "sim_rationale": "Seeking formal agreement with usa for mutual security.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "china",
+          "real_action": "trade_offer",
+          "real_description": "Brokered yuan-denominated commercial transit lane",
+          "sim_action": "trade_offer",
+          "sim_target": "pakistan",
+          "sim_rationale": "Strengthening economic ties with key partner.",
+          "score": 1.0,
+          "match": "EXACT"
+        },
+        {
+          "actor_id": "pakistan",
+          "real_action": "treaty_proposal",
+          "real_description": "Arranged Islamabad peace talks framework",
+          "sim_action": "treaty_proposal",
+          "sim_target": "china",
+          "sim_rationale": "Seeking formal agreement with china for mutual security.",
+          "score": 1.0,
+          "match": "EXACT"
+        },
+        {
+          "actor_id": "houthis",
+          "real_action": "recruit",
+          "real_description": "Held position, prepared Red Sea capabilities",
+          "sim_action": "recruit",
+          "sim_target": null,
+          "sim_rationale": "Building organizational strength for future operations.",
+          "score": 1.0,
+          "match": "EXACT"
+        },
+        {
+          "actor_id": "shipping",
+          "real_action": "hold",
+          "real_description": "Most ships remained anchored, few paid tolls to transit",
+          "sim_action": "propaganda",
+          "sim_target": null,
+          "sim_rationale": "Conducting information campaign to build public support.",
+          "score": 0.1,
+          "match": "MISS"
+        }
+      ],
+      "turn_accuracy": 0.7125
+    },
+    {
+      "turn": 2,
+      "label": "Talks & Posturing (Apr 10-12)",
+      "date_range": "April 10-12, 2026",
+      "actor_matches": [
+        {
+          "actor_id": "iran",
+          "real_action": "mobilize",
+          "real_description": "IRGC warned US warships, reinforced Hormuz defenses",
+          "sim_action": "cyber_operation",
+          "sim_target": "israel",
+          "sim_rationale": "Conducting cyber operations against israel to degrade capabilities.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "usa",
+          "real_action": "mobilize",
+          "real_description": "Destroyers transited Hormuz, Vance negotiated, then Trump declared blockade",
+          "sim_action": "sanction",
+          "sim_target": "iran",
+          "sim_rationale": "Applying economic pressure on iran to deter aggression.",
+          "score": 0.5,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "israel",
+          "real_action": "proxy_support",
+          "real_description": "Continued striking Hezbollah in Lebanon during talks",
+          "sim_action": "sanction",
+          "sim_target": "iran",
+          "sim_rationale": "Applying economic pressure on iran to deter aggression.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "saudi",
+          "real_action": "aid",
+          "real_description": "Supported Pakistan mediation effort diplomatically",
+          "sim_action": "hold",
+          "sim_target": null,
+          "sim_rationale": "Consolidating position to maintain stability.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "china",
+          "real_action": "intel_share",
+          "real_description": "Coordinated with Iran on commercial lane logistics",
+          "sim_action": "treaty_proposal",
+          "sim_target": "pakistan",
+          "sim_rationale": "Seeking formal agreement with pakistan for mutual security.",
+          "score": 0.4,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "pakistan",
+          "real_action": "treaty_proposal",
+          "real_description": "Hosted talks, PM visited Saudi/Qatar/Turkey for support",
+          "sim_action": "intel_share",
+          "sim_target": "china",
+          "sim_rationale": "Building trust with china through intelligence cooperation.",
+          "score": 0.4,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "houthis",
+          "real_action": "recruit",
+          "real_description": "Maintained readiness, awaited Iran's signal",
+          "sim_action": "sabotage",
+          "sim_target": "israel",
+          "sim_rationale": "Disrupting israel's infrastructure to weaken their position.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "shipping",
+          "real_action": "seek_sponsor",
+          "real_description": "Requested naval escort protection for commercial vessels",
+          "sim_action": "recruit",
+          "sim_target": null,
+          "sim_rationale": "Building organizational strength for future operations.",
+          "score": 0.1,
+          "match": "MISS"
+        }
+      ],
+      "turn_accuracy": 0.225
+    },
+    {
+      "turn": 3,
+      "label": "Blockade (Apr 13-14)",
+      "date_range": "April 13-14, 2026",
+      "actor_matches": [
+        {
+          "actor_id": "iran",
+          "real_action": "sanction",
+          "real_description": "Threatened to completely block all Gulf exports and imports",
+          "sim_action": "cyber_operation",
+          "sim_target": "israel",
+          "sim_rationale": "Conducting cyber operations against israel to degrade capabilities.",
+          "score": 0.4,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "usa",
+          "real_action": "sanction",
+          "real_description": "Implemented full naval blockade of all Iranian ports",
+          "sim_action": "sanction",
+          "sim_target": "iran",
+          "sim_rationale": "Applying economic pressure on iran to deter aggression.",
+          "score": 1.0,
+          "match": "EXACT"
+        },
+        {
+          "actor_id": "israel",
+          "real_action": "mobilize",
+          "real_description": "Maintained pressure on Hezbollah in Lebanon",
+          "sim_action": "sanction",
+          "sim_target": "iran",
+          "sim_rationale": "Applying economic pressure on iran to deter aggression.",
+          "score": 0.5,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "saudi",
+          "real_action": "hold",
+          "real_description": "Continued Red Sea bypass operations, braced for market impact",
+          "sim_action": "hold",
+          "sim_target": null,
+          "sim_rationale": "Consolidating position to maintain stability.",
+          "score": 1.0,
+          "match": "EXACT"
+        },
+        {
+          "actor_id": "china",
+          "real_action": "sanction",
+          "real_description": "Condemned blockade diplomatically, Lavrov visited Beijing",
+          "sim_action": "trade_offer",
+          "sim_target": "pakistan",
+          "sim_rationale": "Strengthening economic ties with key partner.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "pakistan",
+          "real_action": "treaty_proposal",
+          "real_description": "Continued backdoor diplomacy for second round of talks",
+          "sim_action": "intel_share",
+          "sim_target": "china",
+          "sim_rationale": "Building trust with china through intelligence cooperation.",
+          "score": 0.4,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "houthis",
+          "real_action": "propaganda",
+          "real_description": "Threatened to target Red Sea shipping and US warships",
+          "sim_action": "sabotage",
+          "sim_target": "israel",
+          "sim_rationale": "Disrupting israel's infrastructure to weaken their position.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "shipping",
+          "real_action": "hold",
+          "real_description": "Suspended all Hormuz transits, traffic dropped to near zero",
+          "sim_action": "recruit",
+          "sim_target": null,
+          "sim_rationale": "Building organizational strength for future operations.",
+          "score": 0.3,
+          "match": "MISS"
+        }
+      ],
+      "turn_accuracy": 0.475
+    },
+    {
+      "turn": 4,
+      "label": "Pressure Mounts (Apr 15-17)",
+      "date_range": "April 15-17, 2026",
+      "actor_matches": [
+        {
+          "actor_id": "iran",
+          "real_action": "treaty_proposal",
+          "real_description": "Opened Hormuz to commercial vessels under IRGC coordination",
+          "sim_action": "sanction",
+          "sim_target": "israel",
+          "sim_rationale": "Applying economic pressure on israel to deter aggression.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "usa",
+          "real_action": "sanction",
+          "real_description": "Maintained blockade even after Iran announced opening",
+          "sim_action": "sanction",
+          "sim_target": "iran",
+          "sim_rationale": "Applying economic pressure on iran to deter aggression.",
+          "score": 1.0,
+          "match": "EXACT"
+        },
+        {
+          "actor_id": "israel",
+          "real_action": "treaty_proposal",
+          "real_description": "Agreed to 10-day Lebanon ceasefire",
+          "sim_action": "sanction",
+          "sim_target": "iran",
+          "sim_rationale": "Applying economic pressure on iran to deter aggression.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "saudi",
+          "real_action": "trade_offer",
+          "real_description": "Explored alternative energy supply arrangements",
+          "sim_action": "hold",
+          "sim_target": null,
+          "sim_rationale": "Consolidating position to maintain stability.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "china",
+          "real_action": "trade_offer",
+          "real_description": "Accepted Russian energy offer, continued brokering Hormuz transit",
+          "sim_action": "aid",
+          "sim_target": "iran",
+          "sim_rationale": "Supporting iran to build alliance credibility.",
+          "score": 0.6,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "pakistan",
+          "real_action": "treaty_proposal",
+          "real_description": "Field Marshal visited Iran, PM visited allies for second round",
+          "sim_action": "trade_offer",
+          "sim_target": "china",
+          "sim_rationale": "Strengthening economic ties with key partner.",
+          "score": 0.5,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "houthis",
+          "real_action": "hold",
+          "real_description": "Held position during diplomatic opening",
+          "sim_action": "sabotage",
+          "sim_target": "israel",
+          "sim_rationale": "Disrupting israel's infrastructure to weaken their position.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "shipping",
+          "real_action": "seek_sponsor",
+          "real_description": "Cautiously welcomed opening but demanded safety guarantees",
+          "sim_action": "propaganda",
+          "sim_target": null,
+          "sim_rationale": "Conducting information campaign to build public support.",
+          "score": 0.1,
+          "match": "MISS"
+        }
+      ],
+      "turn_accuracy": 0.325
+    },
+    {
+      "turn": 5,
+      "label": "Breaking Point (Apr 18-19)",
+      "date_range": "April 18-19, 2026",
+      "actor_matches": [
+        {
+          "actor_id": "iran",
+          "real_action": "mobilize",
+          "real_description": "Re-closed Hormuz, IRGC fired on tankers, reasserted full control",
+          "sim_action": "cyber_operation",
+          "sim_target": "israel",
+          "sim_rationale": "Conducting cyber operations against israel to degrade capabilities.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "usa",
+          "real_action": "mobilize",
+          "real_description": "Maintained blockade, Trump threatened to resume bombing",
+          "sim_action": "sanction",
+          "sim_target": "iran",
+          "sim_rationale": "Applying economic pressure on iran to deter aggression.",
+          "score": 0.5,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "israel",
+          "real_action": "hold",
+          "real_description": "Observed Lebanon ceasefire (with violations), focused on Iran terms",
+          "sim_action": "sanction",
+          "sim_target": "iran",
+          "sim_rationale": "Applying economic pressure on iran to deter aggression.",
+          "score": 0.1,
+          "match": "MISS"
+        },
+        {
+          "actor_id": "saudi",
+          "real_action": "hold",
+          "real_description": "Braced for ceasefire expiry, continued bypass operations",
+          "sim_action": "hold",
+          "sim_target": null,
+          "sim_rationale": "Consolidating position to maintain stability.",
+          "score": 1.0,
+          "match": "EXACT"
+        },
+        {
+          "actor_id": "china",
+          "real_action": "trade_offer",
+          "real_description": "Continued commercial engagement, offered to mediate",
+          "sim_action": "treaty_proposal",
+          "sim_target": "pakistan",
+          "sim_rationale": "Seeking formal agreement with pakistan for mutual security.",
+          "score": 0.5,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "pakistan",
+          "real_action": "treaty_proposal",
+          "real_description": "Pushed for framework agreement before deadline",
+          "sim_action": "intel_share",
+          "sim_target": "china",
+          "sim_rationale": "Building trust with china through intelligence cooperation.",
+          "score": 0.4,
+          "match": "PARTIAL"
+        },
+        {
+          "actor_id": "houthis",
+          "real_action": "sabotage",
+          "real_description": "Prepared Red Sea attack capabilities for post-ceasefire",
+          "sim_action": "sabotage",
+          "sim_target": "israel",
+          "sim_rationale": "Disrupting israel's infrastructure to weaken their position.",
+          "score": 1.0,
+          "match": "EXACT"
+        },
+        {
+          "actor_id": "shipping",
+          "real_action": "hold",
+          "real_description": "Full halt of transit attempts after ships fired upon",
+          "sim_action": "recruit",
+          "sim_target": null,
+          "sim_rationale": "Building organizational strength for future operations.",
+          "score": 0.3,
+          "match": "MISS"
+        }
+      ],
+      "turn_accuracy": 0.4875
+    }
+  ],
+  "overall_accuracy": 0.445,
+  "actor_accuracy": {
+    "iran": 0.24,
+    "usa": 0.8,
+    "israel": 0.36,
+    "saudi": 0.45999999999999996,
+    "china": 0.52,
+    "pakistan": 0.54,
+    "houthis": 0.45999999999999996,
+    "shipping": 0.18
+  },
+  "divergences": [
+    "Turn 1 [Fragile Ceasefire (Apr 8-9)]: saudi predicted treaty_proposal but reality was hold (Exercised restraint, relied on Red Sea bypass pipeline)",
+    "Turn 1 [Fragile Ceasefire (Apr 8-9)]: shipping predicted propaganda but reality was hold (Most ships remained anchored, few paid tolls to transit)",
+    "Turn 2 [Talks & Posturing (Apr 10-12)]: iran predicted cyber_operation but reality was mobilize (IRGC warned US warships, reinforced Hormuz defenses)",
+    "Turn 2 [Talks & Posturing (Apr 10-12)]: israel predicted sanction but reality was proxy_support (Continued striking Hezbollah in Lebanon during talks)",
+    "Turn 2 [Talks & Posturing (Apr 10-12)]: saudi predicted hold but reality was aid (Supported Pakistan mediation effort diplomatically)",
+    "Turn 2 [Talks & Posturing (Apr 10-12)]: houthis predicted sabotage but reality was recruit (Maintained readiness, awaited Iran's signal)",
+    "Turn 2 [Talks & Posturing (Apr 10-12)]: shipping predicted recruit but reality was seek_sponsor (Requested naval escort protection for commercial vessels)",
+    "Turn 3 [Blockade (Apr 13-14)]: china predicted trade_offer but reality was sanction (Condemned blockade diplomatically, Lavrov visited Beijing)",
+    "Turn 3 [Blockade (Apr 13-14)]: houthis predicted sabotage but reality was propaganda (Threatened to target Red Sea shipping and US warships)",
+    "Turn 3 [Blockade (Apr 13-14)]: shipping predicted recruit but reality was hold (Suspended all Hormuz transits, traffic dropped to near zero)",
+    "Turn 4 [Pressure Mounts (Apr 15-17)]: iran predicted sanction but reality was treaty_proposal (Opened Hormuz to commercial vessels under IRGC coordination)",
+    "Turn 4 [Pressure Mounts (Apr 15-17)]: israel predicted sanction but reality was treaty_proposal (Agreed to 10-day Lebanon ceasefire)",
+    "Turn 4 [Pressure Mounts (Apr 15-17)]: saudi predicted hold but reality was trade_offer (Explored alternative energy supply arrangements)",
+    "Turn 4 [Pressure Mounts (Apr 15-17)]: houthis predicted sabotage but reality was hold (Held position during diplomatic opening)",
+    "Turn 4 [Pressure Mounts (Apr 15-17)]: shipping predicted propaganda but reality was seek_sponsor (Cautiously welcomed opening but demanded safety guarantees)",
+    "Turn 5 [Breaking Point (Apr 18-19)]: iran predicted cyber_operation but reality was mobilize (Re-closed Hormuz, IRGC fired on tankers, reasserted full control)",
+    "Turn 5 [Breaking Point (Apr 18-19)]: israel predicted sanction but reality was hold (Observed Lebanon ceasefire (with violations), focused on Iran terms)",
+    "Turn 5 [Breaking Point (Apr 18-19)]: shipping predicted recruit but reality was hold (Full halt of transit attempts after ships fired upon)"
+  ],
+  "correct_predictions": [
+    "Turn 1 [Fragile Ceasefire (Apr 8-9)]: usa correctly predicted mobilize",
+    "Turn 1 [Fragile Ceasefire (Apr 8-9)]: israel correctly predicted mobilize",
+    "Turn 1 [Fragile Ceasefire (Apr 8-9)]: china correctly predicted trade_offer",
+    "Turn 1 [Fragile Ceasefire (Apr 8-9)]: pakistan correctly predicted treaty_proposal",
+    "Turn 1 [Fragile Ceasefire (Apr 8-9)]: houthis correctly predicted recruit",
+    "Turn 3 [Blockade (Apr 13-14)]: usa correctly predicted sanction",
+    "Turn 3 [Blockade (Apr 13-14)]: saudi correctly predicted hold",
+    "Turn 4 [Pressure Mounts (Apr 15-17)]: usa correctly predicted sanction",
+    "Turn 5 [Breaking Point (Apr 18-19)]: saudi correctly predicted hold",
+    "Turn 5 [Breaking Point (Apr 18-19)]: houthis correctly predicted sabotage"
+  ]
+}

@@ -4,7 +4,6 @@ __pycache__/
 *.egg-info/
 .venv/
 venv/
-env/
 *.egg
 
 # Node
@@ -27,12 +26,8 @@ Thumbs.db
 .env.*
 !.env.example
 
-# Logs (keep structure, ignore large replays)
-logs/replays/*.json
-logs/metrics/*.json
+# Logs (keep structure, track seed data)
 logs/benchmarks/*.json
-!logs/replays/.gitkeep
-!logs/metrics/.gitkeep
 !logs/benchmarks/.gitkeep
 
 # Scenarios generated
