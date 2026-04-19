@@ -259,9 +259,14 @@ class SimulationRunner:
                 except Exception:
                     pass
 
-            # Rate-limit delay for LLM agents
+            # Rate-limit delay for LLM agents (only for free models)
             if self.agent_type == "llm" or actor_id in self.actor_agent_configs:
-                time.sleep(self.llm_call_delay)
+                FREE_MODELS = {"big-pickle", "gpt-5-nano", "nemotron-3-super-free", "minimax-m2.5-free"}
+                model_used = self.actor_agent_configs.get(actor_id, {}).get("model", self.llm_model)
+                if model_used in FREE_MODELS:
+                    time.sleep(self.llm_call_delay)  # 5s for free tier
+                else:
+                    time.sleep(0.5)  # minimal delay for paid models
 
             # Collect messages for next turn's inboxes
             for msg in output.private_messages:

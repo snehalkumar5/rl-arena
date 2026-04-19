@@ -10,7 +10,7 @@ export default function LiveSimView() {
   } = useStore();
 
   const [scenario, setScenario] = useState('hormuz_crisis_apr8');
-  const [model, setModel] = useState('big-pickle');
+  const [model, setModel] = useState('qwen3.6-plus');
   const [agentType] = useState('llm');
   const [seed, setSeed] = useState(42);
 
@@ -46,10 +46,21 @@ export default function LiveSimView() {
             disabled={isRunning}
             className="w-full mt-1 bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 disabled:opacity-50"
           >
-            <option value="big-pickle">big-pickle (free)</option>
-            <option value="gpt-5-nano">gpt-5-nano (free)</option>
-            <option value="nemotron-3-super-free">nemotron-3-super-free</option>
-            <option value="minimax-m2.5-free">minimax-m2.5-free</option>
+            <optgroup label="Paid (with credits)">
+              <option value="qwen3.6-plus">qwen3.6-plus</option>
+              <option value="qwen3.5-plus">qwen3.5-plus</option>
+              <option value="minimax-m2.5">minimax-m2.5</option>
+              <option value="glm-5.1">glm-5.1</option>
+              <option value="kimi-k2.5">kimi-k2.5</option>
+              <option value="claude-sonnet-4">claude-sonnet-4</option>
+              <option value="claude-haiku-4-5">claude-haiku-4-5</option>
+            </optgroup>
+            <optgroup label="Free (rate limited)">
+              <option value="big-pickle">big-pickle</option>
+              <option value="gpt-5-nano">gpt-5-nano</option>
+              <option value="nemotron-3-super-free">nemotron-3-super-free</option>
+              <option value="minimax-m2.5-free">minimax-m2.5-free</option>
+            </optgroup>
           </select>
         </div>
         <div>
