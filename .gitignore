@@ -25,6 +25,8 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+test_llm.py
+test_replay.py
 
 # Logs (keep structure, track seed data)
 logs/benchmarks/*.json
