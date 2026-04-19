@@ -2,20 +2,69 @@ import { useEffect } from 'react';
 import { useStore } from '../store';
 import { getActorColor } from '../types';
 
+// Hardcoded actor list for scenarios (used when no replay is loaded)
+const SCENARIO_ACTORS: Record<string, Array<{ actor_id: string; name: string; actor_type: string; archetype: string }>> = {
+  hormuz_crisis_apr8: [
+    { actor_id: 'iran', name: 'Iran', actor_type: 'state', archetype: 'defensive_revisionist_power' },
+    { actor_id: 'usa', name: 'United States', actor_type: 'state', archetype: 'offensive_superpower' },
+    { actor_id: 'israel', name: 'Israel', actor_type: 'state', archetype: 'co_belligerent_regional_power' },
+    { actor_id: 'saudi', name: 'Saudi Arabia', actor_type: 'state', archetype: 'hedging_energy_superpower' },
+    { actor_id: 'china', name: 'China', actor_type: 'state', archetype: 'strategic_opportunist' },
+    { actor_id: 'pakistan', name: 'Pakistan', actor_type: 'state', archetype: 'mediator' },
+    { actor_id: 'houthis', name: 'Houthi Rebels', actor_type: 'non_state', archetype: 'proxy_insurgent' },
+    { actor_id: 'shipping', name: 'Global Shipping Consortium', actor_type: 'non_state', archetype: 'economic_lobby' },
+  ],
+  saffron_sea_crisis: [
+    { actor_id: 'vaeloria', name: 'Vaeloria', actor_type: 'state', archetype: 'hegemon' },
+    { actor_id: 'keshara', name: 'Keshara', actor_type: 'state', archetype: 'rising_power' },
+    { actor_id: 'dravistan', name: 'Dravistan', actor_type: 'state', archetype: 'regional_broker' },
+    { actor_id: 'nuvaris', name: 'Nuvaris', actor_type: 'state', archetype: 'tech_power' },
+    { actor_id: 'iron_tide', name: 'Iron Tide', actor_type: 'non_state', archetype: 'insurgent' },
+    { actor_id: 'saffron_league', name: 'Saffron League', actor_type: 'non_state', archetype: 'trade_bloc' },
+  ],
+};
+
 export function Sidebar() {
   const {
     replayList, currentReplay, activeView,
     loadReplay, setActiveView, loading,
+    simulationJobId, simulationStatus, liveTurns,
   } = useStore();
 
-  // Auto-load first replay
+  // Auto-load first replay when on replay/backtest views
   useEffect(() => {
-    if (replayList.length > 0 && !currentReplay && !loading) {
+    if ((activeView === 'replay' || activeView === 'backtest') && replayList.length > 0 && !currentReplay && !loading) {
       loadReplay(replayList[0].id);
     }
-  }, [replayList, currentReplay, loading, loadReplay]);
+  }, [replayList, currentReplay, loading, loadReplay, activeView]);
 
-  const actors = currentReplay?.world.actors ?? [];
+  // Determine which actors to show based on active view
+  const replayActors = currentReplay?.world.actors ?? [];
+  
+  // For simulate view, extract actors from live turn data or fall back to scenario actors
+  const simActors: Array<{ actor_id: string; name: string; actor_type: string; archetype: string }> = (() => {
+    if (liveTurns.length > 0) {
+      // Extract unique actors from the turn actions
+      const seen = new Set<string>();
+      const actors: Array<{ actor_id: string; name: string; actor_type: string; archetype: string }> = [];
+      for (const turn of liveTurns) {
+        for (const action of (turn.actions || [])) {
+          const id = action.actor_id || action.actor;
+          if (id && !seen.has(id)) {
+            seen.add(id);
+            // Try to find full actor info from scenario actors
+            const known = Object.values(SCENARIO_ACTORS).flat().find(a => a.actor_id === id);
+            actors.push(known || { actor_id: id, name: action.actor_name || id, actor_type: 'state', archetype: 'unknown' });
+          }
+        }
+      }
+      return actors;
+    }
+    return [];
+  })();
+
+  const isSimView = activeView === 'simulate';
+  const actors = isSimView ? simActors : replayActors;
 
   return (
     <aside className="w-64 flex-shrink-0 bg-bg-secondary border-r border-border-subtle flex flex-col h-full overflow-hidden">
@@ -79,53 +128,99 @@ export function Sidebar() {
         </button>
       </div>
 
-      {/* Replay selector */}
-      <div className="p-3 border-b border-border-subtle">
-        <label className="text-text-muted text-[10px] uppercase tracking-widest font-semibold">Scenario</label>
-        <select
-          className="w-full mt-1 bg-bg-elevated border border-border-subtle rounded px-2 py-1.5 text-xs text-text-primary focus:outline-none focus:border-accent-cyan"
-          value={currentReplay?.world.world_id ?? ''}
-          onChange={(e) => {
-            const r = replayList.find(r => r.world_id === e.target.value);
-            if (r) loadReplay(r.id);
-          }}
-        >
-          {replayList.map(r => (
-            <option key={r.id} value={r.world_id}>{r.name}</option>
-          ))}
-        </select>
-      </div>
+      {/* Context panel — changes based on active view */}
+      {isSimView ? (
+        /* ── Simulate context ── */
+        <>
+          <div className="p-3 border-b border-border-subtle">
+            <label className="text-text-muted text-[10px] uppercase tracking-widest font-semibold">Live Simulation</label>
+            {simulationJobId ? (
+              <div className="mt-1 space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[10px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">{simulationJobId}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded ${
+                    simulationStatus === 'running' ? 'bg-amber-900/30 text-amber-400' :
+                    simulationStatus === 'complete' ? 'bg-emerald-900/30 text-emerald-400' :
+                    'bg-slate-800 text-slate-400'
+                  }`}>{simulationStatus}</span>
+                </div>
+                <div className="flex gap-0.5 mt-1">
+                  {[1,2,3,4,5].map(t => (
+                    <div key={t} className={`flex-1 h-1 rounded-full transition-colors ${
+                      t <= liveTurns.length ? 'bg-cyan-500' : 'bg-slate-700'
+                    }`} />
+                  ))}
+                </div>
+                <p className="text-[10px] text-text-muted">{liveTurns.length} / 5 turns</p>
+              </div>
+            ) : (
+              <p className="mt-1 text-[10px] text-text-muted">No simulation running</p>
+            )}
+          </div>
+        </>
+      ) : (
+        /* ── Replay context ── */
+        <div className="p-3 border-b border-border-subtle">
+          <label className="text-text-muted text-[10px] uppercase tracking-widest font-semibold">Scenario</label>
+          <select
+            className="w-full mt-1 bg-bg-elevated border border-border-subtle rounded px-2 py-1.5 text-xs text-text-primary focus:outline-none focus:border-accent-cyan"
+            value={currentReplay?.world.world_id ?? ''}
+            onChange={(e) => {
+              const r = replayList.find(r => r.world_id === e.target.value);
+              if (r) loadReplay(r.id);
+            }}
+          >
+            {replayList.map(r => (
+              <option key={r.id} value={r.world_id}>{r.name}</option>
+            ))}
+          </select>
+        </div>
+      )}
 
-      {/* Actor list */}
+      {/* Actor list — shows actors for current context */}
       <div className="flex-1 overflow-y-auto p-3">
-        <label className="text-text-muted text-[10px] uppercase tracking-widest font-semibold">Actors</label>
+        <label className="text-text-muted text-[10px] uppercase tracking-widest font-semibold">
+          {isSimView ? 'Actors (Live)' : 'Actors'}
+        </label>
         <div className="mt-2 space-y-1">
-          {actors.map((actor, i) => (
-            <button
-              key={actor.actor_id}
-              onClick={() => useStore.getState().setSelectedActor(actor.actor_id)}
-              className="w-full text-left px-2 py-1.5 rounded transition-colors hover:bg-bg-elevated group"
-              style={{ borderLeft: `3px solid ${getActorColor(i)}` }}
-            >
-              <div className="text-xs font-semibold" style={{ color: getActorColor(i) }}>
-                {actor.name}
-              </div>
-              <div className="text-[10px] text-text-muted">
-                {actor.actor_type === 'state' ? '● State' : '◆ Non-State'} · {actor.archetype.replace(/_/g, ' ')}
-              </div>
-            </button>
-          ))}
+          {actors.length > 0 ? (
+            actors.map((actor: any, i: number) => (
+              <button
+                key={actor.actor_id}
+                onClick={() => useStore.getState().setSelectedActor(actor.actor_id)}
+                className="w-full text-left px-2 py-1.5 rounded transition-colors hover:bg-bg-elevated group"
+                style={{ borderLeft: `3px solid ${getActorColor(i)}` }}
+              >
+                <div className="text-xs font-semibold" style={{ color: getActorColor(i) }}>
+                  {actor.name}
+                </div>
+                <div className="text-[10px] text-text-muted">
+                  {actor.actor_type === 'state' ? '● State' : '◆ Non-State'} · {(actor.archetype || '').replace(/_/g, ' ')}
+                </div>
+              </button>
+            ))
+          ) : (
+            <p className="text-[10px] text-text-muted">
+              {isSimView ? 'Actors appear when simulation starts' : 'Load a scenario to see actors'}
+            </p>
+          )}
         </div>
       </div>
 
       {/* Info footer */}
-      {currentReplay && (
+      {isSimView && simulationJobId ? (
+        <div className="p-3 border-t border-border-subtle text-[10px] text-text-muted space-y-0.5">
+          <div><span className="text-text-secondary">Job:</span> {simulationJobId}</div>
+          <div><span className="text-text-secondary">Turns:</span> {liveTurns.length} / 5</div>
+          <div><span className="text-text-secondary">Status:</span> {simulationStatus}</div>
+        </div>
+      ) : currentReplay ? (
         <div className="p-3 border-t border-border-subtle text-[10px] text-text-muted space-y-0.5">
           <div><span className="text-text-secondary">Regions:</span> {currentReplay.world.regions.length}</div>
           <div><span className="text-text-secondary">Turns:</span> {currentReplay.world.turn_limit}</div>
           <div><span className="text-text-secondary">Agent:</span> {currentReplay.metadata.agent_type}</div>
         </div>
-      )}
+      ) : null}
     </aside>
   );
 }
