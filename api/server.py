@@ -20,9 +20,12 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-# Add project root to path
+# Add project root to path — must come before any local imports
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(PROJECT_ROOT))
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+# Also set as env var so subprocesses inherit it
+os.environ.setdefault("PYTHONPATH", str(PROJECT_ROOT))
 
 app = FastAPI(
     title="World Engine API",
@@ -551,6 +554,21 @@ def run_benchmark_endpoint(req: BenchmarkRequest, background_tasks: BackgroundTa
 
 
 # ── Health ──────────────────────────────────────────────────────────────────
+
+@app.on_event("startup")
+def _eager_imports():
+    """Eagerly import simulation modules to catch path issues on boot, not in background tasks."""
+    try:
+        from env.world_schema import World, GameState  # noqa: F401
+        from env.engine import resolve_actions  # noqa: F401
+        from app.runner import SimulationRunner  # noqa: F401
+        print(f"[startup] All simulation modules loaded. PROJECT_ROOT={PROJECT_ROOT}")
+    except ImportError as e:
+        print(f"[startup] WARNING: Import failed: {e}")
+        print(f"[startup] sys.path = {sys.path[:5]}")
+        print(f"[startup] PROJECT_ROOT = {PROJECT_ROOT}")
+        print(f"[startup] Contents: {list(PROJECT_ROOT.iterdir()) if PROJECT_ROOT.exists() else 'NOT FOUND'}")
+
 
 @app.get("/api/health")
 def health():
