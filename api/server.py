@@ -153,14 +153,28 @@ def list_replays():
             try:
                 data = _load_json(f)
                 world = data.get("world", {})
+                meta = data.get("metadata", {})
+                rc = data.get("run_config", {})
+                agent_type = rc.get("global_agent_type", meta.get("agent_type", "unknown"))
+                model = rc.get("global_model", meta.get("model"))
+                run_id = rc.get("run_id", meta.get("run_id", f.stem))
+                # Build display name: scenario + agent + model
+                base_name = world.get("name", f.stem)
+                label = base_name
+                if agent_type == "llm" and model:
+                    label = f"{base_name} [{model}]"
+                elif agent_type == "mock":
+                    label = f"{base_name} [mock]"
                 replays.append({
                     "id": f.stem,
                     "filename": f.name,
-                    "name": world.get("name", f.stem),
+                    "name": label,
                     "world_id": world.get("world_id", ""),
                     "turns": len(data.get("turns", [])),
                     "actor_count": len(world.get("actors", [])),
-                    "agent_type": data.get("metadata", {}).get("agent_type", "unknown"),
+                    "agent_type": agent_type,
+                    "model": model,
+                    "run_id": run_id,
                 })
             except Exception:
                 continue
