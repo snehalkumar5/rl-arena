@@ -1,8 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStore } from '../store';
 import { getActorColor } from '../types';
-import type { ActiveView } from '../store';
 
 export default function LiveSimView() {
   const {
